@@ -1,8 +1,6 @@
-package school.sptech.comBanco;
+package stocksafe.solutions.comBanco;
 
-import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.jdbc.core.SqlOutParameter;
 
 import java.util.List;
 import java.util.Scanner;
@@ -40,7 +38,7 @@ public class Cadastro {
 
     public void enviandoCadastroBanco (){
 
-        String sql = "insert into usuario (nome, senha) values (?, ?)";
+        String sql = "insert into usuario (email, senha) values (?, ?)";
         con.update(sql,getEmailCadastro(),getSenhaCadastro());
 
 

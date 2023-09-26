@@ -1,4 +1,4 @@
-package school.sptech.comBanco;
+package stocksafe.solutions.comBanco;
 
 import com.github.britooo.looca.api.core.Looca;
 import com.github.britooo.looca.api.group.discos.Disco;

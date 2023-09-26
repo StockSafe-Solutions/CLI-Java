@@ -1,4 +1,4 @@
-package school.sptech.comBanco;
+package stocksafe.solutions.comBanco;
 
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -8,7 +8,7 @@ import java.util.Scanner;
 
 public class Login {
 
-    private String nome;
+    private String email;
     private String senha;
 
 
@@ -27,8 +27,8 @@ public class Login {
         Scanner leituraEscrita = new Scanner(System.in);
 
         System.out.println("Login: \n"+"Digite seu email:");
-        this.nome = leituraEscrita.nextLine();
-        System.out.println("Digite seu senha:");
+        this.email = leituraEscrita.nextLine();
+        System.out.println("Digite sua senha:");
         this.senha = leituraEscrita.nextLine();
 
 
@@ -40,7 +40,7 @@ public class Login {
         LoginDoBanco = con.query("select email,senha from usuario " +
                         "where email = ? and senha = ?;",
                 new BeanPropertyRowMapper<>(Login.class),
-                getNome(), getSenha());
+                getEmail(), getSenha());
 
 
     }
@@ -68,12 +68,12 @@ public class Login {
 
 
     //GETTERS e SETTERS
-    public String getNome() {
-        return nome;
+    public String getEmail() {
+        return email;
     }
 
-    public void setNome(String nome) {
-        this.nome = nome;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public String getSenha() {
@@ -94,7 +94,7 @@ public class Login {
     @Override
     public String toString() {
         return "InformacoesLogin{" +
-                " nome='" + nome + '\'' +
+                " nome='" + email + '\'' +
                 ", senha='" + senha + '\''+
                 '}';
     }
