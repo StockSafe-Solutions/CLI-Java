@@ -33,8 +33,10 @@ public class Maquina {
 
     public void analiseDoSistema (){
 
-        mensagem = String.format("Sistema:\n%s\nMemoria:\n%s\nProcessador:\n%s\nTemperatura:\n%s "
-                ,sistema,memoria,processador,temperatura);
+
+
+        mensagem = String.format("Sistema:\n%s\nMemoria:\n%s\nProcessador:\nFrequência: %d\nNúmero de CPUs Fisícas: %d\nNúmero de CPUs Lógicas: %d\nEm uso: %.1f\n\nTemperatura:\n%s "
+                ,sistema,memoria,processador.getFrequencia(),processador.getNumeroCpusFisicas(), processador.getNumeroCpusLogicas(),processador.getUso() ,temperatura);
          System.out.println(mensagem);
 
 
