@@ -37,9 +37,11 @@ public class Maquina {
                 ,sistema,memoria,processador,temperatura);
          System.out.println(mensagem);
 
-        System.out.println("Disco:");
+
         for (Disco disco : discos) {
-            System.out.println(disco);
+            Double discoTrata = disco.getTamanho() *  Math.pow(10,-9);
+
+            System.out.println("\nDisco \nTamanho:%.2fGB\nTranferência: %d".formatted(discoTrata, disco.getTempoDeTransferencia()));
         }
 
 

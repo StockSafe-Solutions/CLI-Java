@@ -39,6 +39,7 @@ public class BancoMain {
 
                     if (escolha.equals(1)) {
                         infoMaquina.analiseDoSistema();
+                        System.out.println("-".repeat(50));
 
                     } else {
                         break;

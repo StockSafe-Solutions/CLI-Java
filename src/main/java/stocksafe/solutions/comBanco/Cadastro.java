@@ -27,7 +27,7 @@ public class Cadastro {
 
         System.out.println("Cadastro: \n"+"Digite seu email:");
         this.emailCadastro = leituraEscrita.nextLine();
-        System.out.println("Digite seu senha:");
+        System.out.println("Digite sua senha:");
         this.senhaCadastro = leituraEscrita.nextLine();
 
         this.enviandoCadastroBanco();
