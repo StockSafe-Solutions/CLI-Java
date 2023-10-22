@@ -8,7 +8,7 @@ import java.util.Properties;
 public class OpcoesDao {
     private Properties propriedades = new Properties();
 
-    public void criarOpcoes(Opcoes opcoes) {
+    public void criarOpcoes() {
         try(OutputStream output = new FileOutputStream("src/main/resources/config.properties")) {
 
             propriedades.setProperty("display.usoCpu", "1");
@@ -17,6 +17,8 @@ public class OpcoesDao {
             propriedades.setProperty("display.taxaTransferencia", "1");
             propriedades.setProperty("display.armazenamentoTotal", "1");
             propriedades.setProperty("display.armazenamentoUsado", "1");
+
+            propriedades.setProperty("maquina.codigo", "");
 
 
             propriedades.store(output, "Primeiras opcões");
@@ -34,6 +36,8 @@ public class OpcoesDao {
             propriedades.setProperty("display.taxaTransferencia", opcoes.getMostrarTaxaTransferencia());
             propriedades.setProperty("display.armazenamentoTotal", opcoes.getMostrarArmazenamentoTotal());
             propriedades.setProperty("display.armazenamentoUsado", opcoes.getMostrarArmazenamentoUsado());
+
+            propriedades.setProperty("maquina.codigo", opcoes.getCodigo());
 
 
             propriedades.store(output, "Novas opcões");
@@ -53,7 +57,9 @@ public class OpcoesDao {
             String mostrarArmazenamentoTotal = propriedades.getProperty("display.armazenamentoTotal");
             String mostrarArmazenamentoUsado = propriedades.getProperty("display.armazenamentoUsado");
 
-            Opcoes opcoes = new Opcoes(mostrarUsoCpu, mostrarUsoRam, mostrarPacotesEnviados, mostrarTaxaTransferencia, mostrarArmazenamentoTotal, mostrarArmazenamentoUsado);
+            String codigo = propriedades.getProperty("maquina.codigo");
+
+            Opcoes opcoes = new Opcoes(mostrarUsoCpu, mostrarUsoRam, mostrarPacotesEnviados, mostrarTaxaTransferencia, mostrarArmazenamentoTotal, mostrarArmazenamentoUsado, codigo);
             return opcoes;
 
         } catch (IOException ex) {

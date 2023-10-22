@@ -4,37 +4,22 @@ import exe.gba.dao.FuncionarioDao;
 import exe.gba.dao.OpcoesDao;
 
 import java.util.Scanner;
+import java.util.concurrent.TimeUnit;
 
 public class Menu {
-    private Scanner leitor;
-    private Scanner leitorString;
-    private FuncionarioDao funcionarioDao;
-    private OpcoesDao opcoesDao;
-    private MaquinaAntiga maquinaAntiga;
+    private final Scanner leitor;
+    private final Scanner leitorString;
+    private final FuncionarioDao funcionarioDao;
+    private final OpcoesDao opcoesDao;
 
-    public Menu(Scanner leitor, Scanner leitorString, FuncionarioDao funcionarioDao, OpcoesDao opcoesDao, MaquinaAntiga maquinaAntiga) {
+    private final Maquina maquina;
+
+    public Menu(Scanner leitor, Scanner leitorString, FuncionarioDao funcionarioDao, OpcoesDao opcoesDao, Maquina maquina) {
         this.leitor = leitor;
         this.leitorString = leitorString;
         this.funcionarioDao = funcionarioDao;
         this.opcoesDao = opcoesDao;
-        this.maquinaAntiga = maquinaAntiga;
-    }
-
-    public Boolean fazerLogin() {
-        System.out.println("Digite o seu email: ");
-        String email = leitorString.nextLine();
-
-        System.out.println("Digite a sua senha: ");
-        String senha = leitorString.nextLine();
-
-        Funcionario funcionario = new Funcionario(email, senha);
-
-        if (funcionarioDao.getFuncionarioPorLogin(funcionario).isEmpty()) {
-            System.out.println("Usuário inválido");
-            return false;
-        }
-        System.out.println("Login efetuado, indo para o menu... ");
-        return true;
+        this.maquina = maquina;
     }
 
     public void exibirMenuInicial() {
@@ -52,34 +37,54 @@ public class Menu {
     }
 
     public void verificarDados () {
-        System.out.println(maquinaAntiga.getMediaBytesEnviados());
-    }
+        Opcoes opcoes = opcoesDao.carregarOpcoes();
 
+        if (opcoes.getMostrarUsoRam() != null) {
+            for (int i = 0; i < 20; i++) {
+                System.out.println("+--------------------------------------------------------------------------+");
+                System.out.println("| Dados Atuais");
+                System.out.println("+--------------------------------------------------------------------------+");
+
+                if (opcoes.getMostrarUsoCpu().equals("1")) {
+                    System.out.printf("| Uso de CPU: %.2f %%%n", maquina.getPorcentagemUsoCpu());
+                }
+                if (opcoes.getMostrarUsoRam().equals("1")) {
+                    System.out.printf("| Uso de RAM: %.2f %%%n", maquina.getPorcentagemUsoRam());
+                }
+
+                if (opcoes.getMostrarTaxaTransferencia().equals("1")) {
+                    System.out.printf("| Taxa de Transferência: %.2f Mb %n", maquina.getTaxaDeTransferencia());
+                }
+
+                if (opcoes.getMostrarPacotesEnviados().equals("1")) {
+                    System.out.printf("| Pacotes Enviados: %.0f %n", maquina.getPacotesEnviados());
+                }
+
+                if (opcoes.getMostrarArmazenamentoTotal().equals("1")) {
+                    System.out.printf("| Armazenamento Total: %.2f GB %n", maquina.getArmazenamentoTotal());
+                }
+                if (opcoes.getMostrarArmazenamentoUsado().equals("1")) {
+                    System.out.printf("| Armazenamento Usado: %.2f GB %n", maquina.getArmazenamentoUsado());
+                }
+
+                System.out.println("+--------------------------------------------------------------------------+");
+
+                try {
+                    Thread.sleep(1000);
+                } catch (InterruptedException e) {
+                    Thread.currentThread().interrupt();
+                }
+            }
+        }
+
+    }
     public void mudarOpcoes () {
         Opcoes opcoes = opcoesDao.carregarOpcoes();
         System.out.println(opcoes);
 
         System.out.println("Insira um valor (1 = Mostrar / 0 = Ocultar): ");
 
-        for (int i = 0; i < 6; i++) {
-            System.out.printf("%s) ", i+1);
-
-            String opcaoEscolhida = solicitarOpcaoString();
-
-            if (opcaoEscolhida.equals("0") || opcaoEscolhida.equals("1")) {
-                switch (i) {
-                    case 0 -> opcoes.setMostrarUsoCpu(opcaoEscolhida);
-                    case 1 -> opcoes.setMostrarUsoRam(opcaoEscolhida);
-                    case 2 -> opcoes.setMostrarPacotesEnviados(opcaoEscolhida);
-                    case 3 -> opcoes.setMostrarTaxaTransferencia(opcaoEscolhida);
-                    case 4 -> opcoes.setMostrarArmazenamentoTotal(opcaoEscolhida);
-                    case 5 -> opcoes.setmostrarArmazenamentoUsado(opcaoEscolhida);
-                }
-            } else {
-                System.out.println("Opção inválida! ");
-                return;
-            }
-        }
+        opcoes.setOpcoes(leitorString);
 
         opcoesDao.alterarOpcoes(opcoes);
     }
@@ -94,7 +99,10 @@ public class Menu {
         return leitorString.nextLine();
     }
 
-    public void exibirMensagemSair () { System.out.println("Saindo... "); }
+    public void exibirMensagemSair () {
+        System.out.println("Saindo... ");
+        System.exit(0);
+    }
 
     public void opcaoInvalida () { System.out.println("Opção inválida"); }
 }

@@ -9,5 +9,8 @@
         <module name="testee" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="CLI-Teste" target="17" />
+    </bytecodeTargetLevel>
   </component>
 </project>

@@ -1,6 +1,8 @@
 package exe.gba.objeto;
 
 import com.github.britooo.looca.api.core.Looca;
+import com.github.britooo.looca.api.group.discos.DiscoGrupo;
+import com.github.britooo.looca.api.group.discos.Volume;
 import com.github.britooo.looca.api.group.memoria.Memoria;
 import com.github.britooo.looca.api.group.processador.Processador;
 import com.github.britooo.looca.api.group.rede.RedeInterface;
@@ -12,15 +14,16 @@ public class Maquina {
     private Looca looca;
     private Processador cpu;
     private Memoria ram;
-    private List<RedeInterface> interfaces;
 
-    public Maquina () {}
+    private List<Volume> volumes;
+    private List<RedeInterface> interfaces;
 
     public Maquina(Looca looca) {
         this.looca = looca;
         this.cpu = looca.getProcessador();
         this.ram = looca.getMemoria();
         this.interfaces = looca.getRede().getGrupoDeInterfaces().getInterfaces();
+        this.volumes = looca.getGrupoDeDiscos().getVolumes();
     }
 
     public Processador getCpu() {
@@ -35,9 +38,67 @@ public class Maquina {
         return interfaces;
     }
 
+    private Double conversaoGB (Long numero) {
+        return numero * Math.pow(10, -9);
+    }
+
+    private Double conversaoGB (Double numero) {
+        return numero * Math.pow(10, -9);
+    }
+
+    public Double getPorcentagemUsoCpu () {
+        return cpu.getUso();
+    }
+
     public Double getPorcentagemUsoRam () {
-        Double porcentagemDeUso = (ram.getTotal() * (ram.getEmUso() / 100)) / Math.pow(1000, 2);
+        Double ramTotal = this.conversaoGB(ram.getTotal());
+        Double ramEmUso = this.conversaoGB(ram.getEmUso());
+
+        Double porcentagemDeUso = (ramEmUso * 100) / ramTotal;
 
         return porcentagemDeUso;
+    }
+
+    public Double getTaxaDeTransferencia () {
+        double bytesEnviados = 0.0;
+        double bytesRecebidos = 0.0;
+
+        for (RedeInterface interfaceAtual :
+                interfaces) {
+            bytesEnviados += interfaceAtual.getBytesEnviados();
+            bytesRecebidos += interfaceAtual.getBytesRecebidos();
+        }
+
+        return conversaoGB((bytesEnviados + bytesRecebidos) / 2);
+    }
+
+    public Double getPacotesEnviados () {
+        double pacotesEnviados = 0.0;
+
+        for (RedeInterface interfaceAtual :
+                interfaces) {
+            pacotesEnviados += interfaceAtual.getPacotesEnviados();
+        }
+
+        return pacotesEnviados / interfaces.size();
+    }
+
+    public Double getArmazenamentoTotal () {
+        return this.conversaoGB(looca.getGrupoDeDiscos().getTamanhoTotal());
+    }
+
+    public Double getArmazenamentoUsado () {
+        Double armazenamentoUsado = 0.0;
+
+        for (Volume volumeAtual :
+                volumes) {
+            armazenamentoUsado += volumeAtual.getTotal() - volumeAtual.getDisponivel();
+        }
+
+        return this.conversaoGB(armazenamentoUsado);
+    }
+
+    public static void main(String[] args) {
+        System.out.println(new Maquina(new Looca()).getArmazenamentoUsado());
     }
 }
