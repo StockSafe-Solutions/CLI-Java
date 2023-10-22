@@ -29,7 +29,8 @@ public class Menu {
             | StockSafe Solutions                  |
             +--------------------------------------+
             | 1) Verificar Dados                   |
-            | 2) Mudar configurações de exibição   |
+            | 2) Listar Processos                  |
+            | 3) Mudar configurações de exibição   |
             |                                      |
             | 0) Sair                              |
             +--------------------------------------+
@@ -77,6 +78,10 @@ public class Menu {
             }
         }
 
+    }
+
+    public void listarProcessos () {
+        System.out.println(maquina.getProcessos());
     }
     public void mudarOpcoes () {
         Opcoes opcoes = opcoesDao.carregarOpcoes();

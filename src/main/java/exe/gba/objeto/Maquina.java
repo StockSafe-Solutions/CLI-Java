@@ -5,6 +5,7 @@ import com.github.britooo.looca.api.group.discos.DiscoGrupo;
 import com.github.britooo.looca.api.group.discos.Volume;
 import com.github.britooo.looca.api.group.memoria.Memoria;
 import com.github.britooo.looca.api.group.processador.Processador;
+import com.github.britooo.looca.api.group.processos.Processo;
 import com.github.britooo.looca.api.group.rede.RedeInterface;
 
 import java.util.List;
@@ -17,6 +18,7 @@ public class Maquina {
 
     private List<Volume> volumes;
     private List<RedeInterface> interfaces;
+    private List<Processo> processos;
 
     public Maquina(Looca looca) {
         this.looca = looca;
@@ -24,6 +26,7 @@ public class Maquina {
         this.ram = looca.getMemoria();
         this.interfaces = looca.getRede().getGrupoDeInterfaces().getInterfaces();
         this.volumes = looca.getGrupoDeDiscos().getVolumes();
+        this.processos = looca.getGrupoDeProcessos().getProcessos();
     }
 
     public Processador getCpu() {
@@ -98,7 +101,7 @@ public class Maquina {
         return this.conversaoGB(armazenamentoUsado);
     }
 
-    public static void main(String[] args) {
-        System.out.println(new Maquina(new Looca()).getArmazenamentoUsado());
+    public List<Processo> getProcessos () {
+        return this.processos;
     }
 }
