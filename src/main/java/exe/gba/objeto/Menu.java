@@ -1,6 +1,7 @@
 package exe.gba.objeto;
 
 import exe.gba.dao.FuncionarioDao;
+import exe.gba.dao.MaquinaDao;
 import exe.gba.dao.OpcoesDao;
 
 import java.util.Scanner;
@@ -11,8 +12,8 @@ public class Menu {
     private final Scanner leitorString;
     private final FuncionarioDao funcionarioDao;
     private final OpcoesDao opcoesDao;
-
     private final Maquina maquina;
+
 
     public Menu(Scanner leitor, Scanner leitorString, FuncionarioDao funcionarioDao, OpcoesDao opcoesDao, Maquina maquina) {
         this.leitor = leitor;

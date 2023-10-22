@@ -38,7 +38,6 @@ public class Main {
 
         if (opcoesDao.carregarOpcoes() == null){
             opcoesDao.criarOpcoes();
-            opcoes = opcoesDao.carregarOpcoes();
         }
 
         opcoes = opcoesDao.carregarOpcoes();
