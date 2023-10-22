@@ -9,6 +9,8 @@ public class OpcoesDao {
     private Properties propriedades = new Properties();
 
     public void criarOpcoes() {
+        new File("src/main/resources").mkdir();
+
         try(OutputStream output = new FileOutputStream("src/main/resources/config.properties")) {
 
             propriedades.setProperty("display.usoCpu", "1");
