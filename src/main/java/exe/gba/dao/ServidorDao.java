@@ -20,7 +20,7 @@ public class ServidorDao {
         con.update("""
         INSERT INTO tb_servidor values (
         null,
-        %s,
+        '%s',
         %.1f,
         %.1f,
         %d)
