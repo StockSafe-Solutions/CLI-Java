@@ -10,10 +10,12 @@ import exe.gba.objeto.*;
 import org.springframework.jdbc.core.JdbcTemplate;
 
 import java.util.List;
+import java.util.Locale;
 import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
+        Locale.setDefault(Locale.US);
         Conexao conexao = new Conexao();
         JdbcTemplate con = conexao.getConexaoDoBanco();
 
@@ -73,10 +75,6 @@ public class Main {
 
             opcoesDao.alterarOpcoes(opcoes);
             isCadastrado = false;
-        }
-
-        if (!isCadastrado) {
-            servidorDao.cadastrarServidor(opcoes, maquina, funcionario);
         }
 
         servidor = servidorDao.selecionarServidor(opcoes).get(0);

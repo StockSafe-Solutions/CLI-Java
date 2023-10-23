@@ -18,7 +18,7 @@ public class MaquinaDao {
 
     public void inserirDados (Servidor servidor, Maquina maquina) {
         con.update("""
-        INSERT INTO tb_registro values (
+        INSERT INTO tb_registro VALUES(
             null,
             %d,
             now(),
