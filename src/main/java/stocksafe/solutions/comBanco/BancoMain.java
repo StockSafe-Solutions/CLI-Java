@@ -30,9 +30,28 @@ public class BancoMain {
                 usuarioLogin.respostaVerificacao();
 
                 do {
+                    System.out.println("""
+                            Qual máquina deseja ver?
+                            1. Máquina 1
+                            2. Máquina 2
+                            3. Máquina 3
+                            """);
+                    escolha = leitor.nextInt();
+
+                    switch (escolha) {
+                        case 1:
+                            System.out.println("Máquina 1 ");
+                            break;
+                        case 2:
+                            System.out.println("Máquina 2 ");
+                            break;
+                        case 3:
+                            System.out.println("Máquina 3 ");
+                            break;
+                    }
 
                     System.out.println("""
-                            1. Informações das Máquinas
+                            1. Informações da Máquina
                             0. Sair
                             """);
                     escolha = leitor.nextInt();
