@@ -69,12 +69,10 @@ public class Main {
             }
         }
 
-        while (opcoesDao.carregarOpcoes().getCodigo().isEmpty()) {
-
+        while (servidorDao.selecionarServidor(opcoes).isEmpty()) {
             opcoes.setCodigo(leitorString);
 
             opcoesDao.alterarOpcoes(opcoes);
-            isCadastrado = false;
         }
 
         servidor = servidorDao.selecionarServidor(opcoes).get(0);
