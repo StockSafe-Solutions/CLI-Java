@@ -45,7 +45,6 @@ public class Main {
         opcoes = opcoesDao.carregarOpcoes();
 
         Boolean isLogado = false;
-        Boolean isCadastrado = true;
 
         while (!isLogado) {
             System.out.println("Faça seu login");
