@@ -77,6 +77,8 @@ public class Main {
 
         servidor = servidorDao.selecionarServidor(opcoes).get(0);
 
+        servidorDao.autenticarServidor(servidor, funcionario);
+
         do {
             menu.exibirMenuInicial();
             Integer opcaoEscolhida = menu.solicitarOpcaoInt();
@@ -90,6 +92,7 @@ public class Main {
             }
 
             maquinaDao.inserirDados(servidor, maquina);
+            servidorDao.atualizarArmazenamento(servidor, maquina.getArmazenamentoTotal(), maquina.getArmazenamentoUsado());
         } while (true);
     }
 }

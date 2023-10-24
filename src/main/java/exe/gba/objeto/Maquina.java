@@ -49,6 +49,14 @@ public class Maquina {
         return numero * Math.pow(10, -9);
     }
 
+    private Long conversaoMb (Long numero) {
+        return numero / 131072;
+    }
+
+    private Double conversaoMb (Double numero) {
+        return numero / 131072;
+    }
+
     public Double getPorcentagemUsoCpu () {
         return cpu.getUso();
     }
@@ -72,7 +80,7 @@ public class Maquina {
             bytesRecebidos += interfaceAtual.getBytesRecebidos();
         }
 
-        return conversaoGB((bytesEnviados + bytesRecebidos) / 2);
+        return conversaoMb((bytesEnviados + bytesRecebidos) / 2);
     }
 
     public Double getPacotesEnviados () {
