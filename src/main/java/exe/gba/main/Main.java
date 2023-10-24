@@ -84,11 +84,20 @@ public class Main {
             Integer opcaoEscolhida = menu.solicitarOpcaoInt();
 
             switch (opcaoEscolhida) {
-                case 1-> menu.verificarDados();
-                case 2-> menu.listarProcessos();
-                case 3-> menu.mudarOpcoes();
-                case 0-> menu.exibirMensagemSair();
-                default-> menu.opcaoInvalida();
+                case 1:
+                    menu.verificarDados();
+                    break;
+                case 2:
+                    menu.listarProcessos();
+                    break;
+                case 3:
+                    menu.mudarOpcoes();
+                    break;
+                case 0:
+                    menu.exibirMensagemSair();
+                    break;
+                default:
+                    menu.opcaoInvalida();
             }
 
             maquinaDao.inserirDados(servidor, maquina);
