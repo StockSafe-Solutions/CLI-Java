@@ -61,6 +61,17 @@ public class Maquina {
         return cpu.getUso();
     }
 
+    public Double getTotalRam(){
+        Double ramTotal = this.conversaoGB(ram.getTotal());
+        return ramTotal;
+    }
+
+    public Double getPercentagemDisponivelRam(){
+        Double ramTotal = this.conversaoGB(ram.getTotal());
+        Double ramDisponivel = this.conversaoGB( ram.getDisponivel() );
+        return (ramDisponivel * 100) / ramTotal;
+    }
+
     public Double getPorcentagemUsoRam () {
         Double ramTotal = this.conversaoGB(ram.getTotal());
         Double ramEmUso = this.conversaoGB(ram.getEmUso());
@@ -94,7 +105,8 @@ public class Maquina {
         return pacotesEnviados / interfaces.size();
     }
 
-    public Double getArmazenamentoTotal () {
+    public Double
+    getArmazenamentoTotal () {
         return this.conversaoGB(looca.getGrupoDeDiscos().getTamanhoTotal());
     }
 

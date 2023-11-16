@@ -10,8 +10,8 @@ public class Conexao {
         BasicDataSource dataSource = new BasicDataSource();
         dataSource.setDriverClassName("com.mysql.cj.jdbc.Driver");
         dataSource.setUrl("jdbc:mysql://localhost:3306/StockSafe");
-        dataSource.setUsername("StockSafe");
-        dataSource.setPassword("urubu100");
+        dataSource.setUsername("aluno");
+        dataSource.setPassword("sptech");
 
         this.conexaoDoBanco = new JdbcTemplate(dataSource);
     }
