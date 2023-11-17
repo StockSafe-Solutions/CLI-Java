@@ -126,6 +126,7 @@ public class Main {
                     break;
                 case 4 :
                     for (int i = 0; i < 60; i++) {
+                        Thread.sleep( 5000 );
                         System.out.println( "+--------------------------------------------------------------------------+" );
                         System.out.println( "| Dados Atuais" );
                         System.out.println( "+--------------------------------------------------------------------------+" );
@@ -135,7 +136,7 @@ public class Main {
                         md.inserirDadosRamTotal( servidor, maquina, 5 );
                         System.out.printf( "| Espaço livre  de RAM: %.2f %%%n", maquina.getPercentagemDisponivelRam() );
                         md.inserirDadosRamDisponivel( servidor, maquina, 6 );
-                        Thread.sleep( 5000 );
+
                     }
                     break;
                 case 0:
