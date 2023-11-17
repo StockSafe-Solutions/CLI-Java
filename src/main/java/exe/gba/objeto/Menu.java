@@ -32,7 +32,7 @@ public class Menu {
             | 1) Verificar Dados                   |
             | 2) Listar Processos                  |
             | 3) Mudar configurações de exibição   |
-            |                                      |
+            |  4) Mostrar dados da RAM                                    |
             | 0) Sair                              |
             +--------------------------------------+
                 """);
@@ -104,10 +104,21 @@ public class Menu {
         System.out.println("Selecione uma opção:");
         return leitorString.nextLine();
     }
-
     public void exibirMensagemSair () {
         System.out.println("Saindo... ");
         System.exit(0);
+    }
+
+    public void dadosRam(){
+        for (int i = 0; i < 20; i++) {
+            System.out.println( "+--------------------------------------------------------------------------+" );
+            System.out.println( "| Dados Atuais" );
+            System.out.println( "+--------------------------------------------------------------------------+" );
+            System.out.printf("| Uso de RAM: %.2f %%%n", maquina.getPorcentagemUsoRam());
+            System.out.printf("| Espaço total de RAM: %.2f %%%n", maquina.getTotalRam());
+            System.out.printf("| Espaço livre  de RAM: %.2f %%%n", maquina.getPercentagemDisponivelRam());
+        }
+
     }
 
     public void opcaoInvalida () { System.out.println("Opção inválida"); }

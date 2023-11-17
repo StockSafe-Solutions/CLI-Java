@@ -2,10 +2,7 @@ package exe.gba.main;
 
 import com.github.britooo.looca.api.core.Looca;
 import exe.gba.conexao.Conexao;
-import exe.gba.dao.FuncionarioDao;
-import exe.gba.dao.MaquinaDao;
-import exe.gba.dao.OpcoesDao;
-import exe.gba.dao.ServidorDao;
+import exe.gba.dao.*;
 import exe.gba.objeto.*;
 import org.springframework.jdbc.core.JdbcTemplate;
 
@@ -38,6 +35,9 @@ public class Main {
 
         Menu menu = new Menu(leitor, leitorString, funcionarioDao, opcoesDao, maquina);
 
+
+        MemoriaDao md = new MemoriaDao( con );
+
         if (opcoesDao.carregarOpcoes() == null){
             opcoesDao.criarOpcoes();
         }
@@ -67,7 +67,30 @@ public class Main {
                 System.out.println("Usuário inválido");
             }
         }
+        String resposta = "";
+        String res = "";
+        while (true){
+            System.out.println("Quer cadastrar uma nova categoria? [S/n]");
+             resposta = leitorString. nextLine();
+             if(resposta.equalsIgnoreCase( "n" )){
+                 break;
+             }else{
+                 do {
+                     System.out.println("Digite o tipo: ");
+                     String  tipo = leitorString.nextLine();
 
+                     System.out.println("Digite a unidade");
+                     String unidade = leitorString.nextLine();
+
+                     CategoriaDao cd = new CategoriaDao( con );
+                     cd.inserirDadosCategoria(tipo, unidade);
+
+                     System.out.println("Deseja adicionar mais uma?  [S/n]");
+                     res = leitorString.nextLine();
+                 }while (res.equalsIgnoreCase( "n" ));
+                 break;
+             }
+        }
         while (servidorDao.selecionarServidor(opcoes).isEmpty()) {
             opcoes.setCodigo(leitorString);
 
@@ -92,15 +115,22 @@ public class Main {
                 case 3:
                     menu.mudarOpcoes();
                     break;
+                case 4 :
+                    menu.dadosRam();
+                    break;
                 case 0:
                     menu.exibirMensagemSair();
                     break;
                 default:
                     menu.opcaoInvalida();
             }
+            md.data();
+           md.inserirDadosRamEmUso( servidor, maquina, 3);
+           md.inserirDadosRamTotal( servidor, maquina, 5 );
+           md.inserirDadosRamDisponivel( servidor,maquina, 6);
 
-            maquinaDao.inserirDados(servidor, maquina);
-            servidorDao.atualizarArmazenamento(servidor, maquina.getArmazenamentoTotal(), maquina.getArmazenamentoUsado());
+            //maquinaDao.inserirDados(servidor, maquina);
+            //servidorDao.atualizarArmazenamento(servidor, maquina.getArmazenamentoTotal(), maquina.getArmazenamentoUsado());
         } while (true);
     }
 }
