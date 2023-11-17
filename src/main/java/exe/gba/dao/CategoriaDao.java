@@ -21,14 +21,9 @@ public class CategoriaDao {
     public List<Categoria> selecionarCategoria () {
         return con.query("SELECT id_cat FROM tb_categoria WHERE tipo_cat = ?;", new BeanPropertyRowMapper<>( Categoria.class), this.tipoCategoria);
     }
-    public void inserirDadosCategoria( String tipoCategoria, String unidade){
+    public void inserirDadosCategoria( int id, String tipo, String unidade){
         con.update("""
-        INSERT INTO tb_categoria VALUES(
-            null,
-            %s,
-            %s,
-        );
-        """.formatted(this.tipoCategoria, this.unidade)
-        );
+    INSERT INTO tb_categoria (id_cat, tipo_cat,  unidade_cat) VALUES (?, ?, ?);
+    """,id, tipo, unidade);
     }
 }

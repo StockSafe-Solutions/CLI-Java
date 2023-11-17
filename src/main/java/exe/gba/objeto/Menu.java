@@ -109,17 +109,7 @@ public class Menu {
         System.exit(0);
     }
 
-    public void dadosRam(){
-        for (int i = 0; i < 20; i++) {
-            System.out.println( "+--------------------------------------------------------------------------+" );
-            System.out.println( "| Dados Atuais" );
-            System.out.println( "+--------------------------------------------------------------------------+" );
-            System.out.printf("| Uso de RAM: %.2f %%%n", maquina.getPorcentagemUsoRam());
-            System.out.printf("| Espaço total de RAM: %.2f %%%n", maquina.getTotalRam());
-            System.out.printf("| Espaço livre  de RAM: %.2f %%%n", maquina.getPercentagemDisponivelRam());
-        }
 
-    }
 
     public void opcaoInvalida () { System.out.println("Opção inválida"); }
 }

@@ -11,7 +11,8 @@ import java.util.Locale;
 import java.util.Scanner;
 
 public class Main {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws InterruptedException {
+
         Locale.setDefault(Locale.US);
         Conexao conexao = new Conexao();
         JdbcTemplate con = conexao.getConexaoDoBanco();
@@ -37,6 +38,7 @@ public class Main {
 
 
         MemoriaDao md = new MemoriaDao( con );
+
 
         if (opcoesDao.carregarOpcoes() == null){
             opcoesDao.criarOpcoes();
@@ -75,7 +77,10 @@ public class Main {
              if(resposta.equalsIgnoreCase( "n" )){
                  break;
              }else{
-                 do {
+                 while (true){
+                     System.out.println("Digite o id: ");
+                     int id = leitor.nextInt();
+
                      System.out.println("Digite o tipo: ");
                      String  tipo = leitorString.nextLine();
 
@@ -83,12 +88,16 @@ public class Main {
                      String unidade = leitorString.nextLine();
 
                      CategoriaDao cd = new CategoriaDao( con );
-                     cd.inserirDadosCategoria(tipo, unidade);
+                     cd.inserirDadosCategoria(id ,tipo, unidade);
 
                      System.out.println("Deseja adicionar mais uma?  [S/n]");
                      res = leitorString.nextLine();
-                 }while (res.equalsIgnoreCase( "n" ));
-                 break;
+
+                     if (res.equalsIgnoreCase( "n" )){
+                         break;
+                     }
+                 }
+
              }
         }
         while (servidorDao.selecionarServidor(opcoes).isEmpty()) {
@@ -116,7 +125,18 @@ public class Main {
                     menu.mudarOpcoes();
                     break;
                 case 4 :
-                    menu.dadosRam();
+                    for (int i = 0; i < 60; i++) {
+                        System.out.println( "+--------------------------------------------------------------------------+" );
+                        System.out.println( "| Dados Atuais" );
+                        System.out.println( "+--------------------------------------------------------------------------+" );
+                        System.out.printf( "| Uso de RAM: %.2f %%%n", maquina.getPorcentagemUsoRam() );
+                        md.inserirDadosRamEmUso( servidor, maquina, 3 );
+                        System.out.printf( "| Espaço total de RAM: %.2f %%%n", maquina.getTotalRam() );
+                        md.inserirDadosRamTotal( servidor, maquina, 5 );
+                        System.out.printf( "| Espaço livre  de RAM: %.2f %%%n", maquina.getPercentagemDisponivelRam() );
+                        md.inserirDadosRamDisponivel( servidor, maquina, 6 );
+                        Thread.sleep( 5000 );
+                    }
                     break;
                 case 0:
                     menu.exibirMensagemSair();
@@ -125,9 +145,9 @@ public class Main {
                     menu.opcaoInvalida();
             }
             md.data();
-           md.inserirDadosRamEmUso( servidor, maquina, 3);
-           md.inserirDadosRamTotal( servidor, maquina, 5 );
-           md.inserirDadosRamDisponivel( servidor,maquina, 6);
+
+
+
 
             //maquinaDao.inserirDados(servidor, maquina);
             //servidorDao.atualizarArmazenamento(servidor, maquina.getArmazenamentoTotal(), maquina.getArmazenamentoUsado());
