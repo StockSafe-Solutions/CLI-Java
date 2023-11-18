@@ -1,4 +1,4 @@
-package exe.gba.objeto;
+package com.stocksafe.objeto;
 
 import java.util.Scanner;
 

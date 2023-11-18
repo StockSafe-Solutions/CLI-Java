@@ -1,11 +1,12 @@
-package exe.gba.dao;
+package com.stocksafe.dao;
 
-import exe.gba.objeto.Categoria;
-import exe.gba.objeto.Servidor;
-import exe.gba.objeto.Maquina;
+import com.stocksafe.objeto.Categoria;
+import com.stocksafe.objeto.Servidor;
 import org.springframework.jdbc.core.JdbcTemplate;
 
 public class MaquinaDao {
+
+
     private JdbcTemplate con;
 
     public MaquinaDao(JdbcTemplate con) {

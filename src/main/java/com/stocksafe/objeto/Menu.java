@@ -1,7 +1,7 @@
-package exe.gba.objeto;
+package com.stocksafe.objeto;
 
-import exe.gba.dao.FuncionarioDao;
-import exe.gba.dao.OpcoesDao;
+import com.stocksafe.dao.FuncionarioDao;
+import com.stocksafe.dao.OpcoesDao;
 
 import java.util.Scanner;
 

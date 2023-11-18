@@ -1,4 +1,4 @@
-package exe.gba.objeto;
+package com.stocksafe.objeto;
 
 import com.github.britooo.looca.api.core.Looca;
 import com.github.britooo.looca.api.group.discos.Volume;

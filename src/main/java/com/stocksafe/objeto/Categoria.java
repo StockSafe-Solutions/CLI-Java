@@ -1,4 +1,4 @@
-package exe.gba.objeto;
+package com.stocksafe.objeto;
 
 public class Categoria {
 

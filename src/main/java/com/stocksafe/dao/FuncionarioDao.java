@@ -1,6 +1,6 @@
-package exe.gba.dao;
+package com.stocksafe.dao;
 
-import exe.gba.objeto.Funcionario;
+import com.stocksafe.objeto.Funcionario;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 

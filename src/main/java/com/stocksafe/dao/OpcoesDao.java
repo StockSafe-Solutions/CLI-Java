@@ -1,6 +1,6 @@
-package exe.gba.dao;
+package com.stocksafe.dao;
 
-import exe.gba.objeto.Opcoes;
+import com.stocksafe.objeto.Opcoes;
 
 import java.io.*;
 import java.util.Properties;

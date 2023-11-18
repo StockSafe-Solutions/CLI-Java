@@ -1,16 +1,16 @@
-package exe.gba.main;
+package com.stocksafe;
 
-import exe.gba.dao.FuncionarioDao;
-import exe.gba.dao.ServidorDao;
-import exe.gba.objeto.Servidor;
+import com.stocksafe.dao.FuncionarioDao;
+import com.stocksafe.dao.ServidorDao;
+import com.stocksafe.objeto.Servidor;
 import com.github.britooo.looca.api.core.Looca;
-import exe.gba.conexao.Conexao;
-import exe.gba.dao.MaquinaDao;
-import exe.gba.dao.OpcoesDao;
-import exe.gba.objeto.Funcionario;
-import exe.gba.objeto.Maquina;
-import exe.gba.objeto.Menu;
-import exe.gba.objeto.Opcoes;
+import com.stocksafe.conexao.Conexao;
+import com.stocksafe.dao.MaquinaDao;
+import com.stocksafe.dao.OpcoesDao;
+import com.stocksafe.objeto.Funcionario;
+import com.stocksafe.objeto.Maquina;
+import com.stocksafe.objeto.Menu;
+import com.stocksafe.objeto.Opcoes;
 import org.springframework.jdbc.core.JdbcTemplate;
 
 import java.util.List;
