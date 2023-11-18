@@ -1,11 +1,11 @@
-/home/gba/computacao/SPTECH/PI/CLI-Java/src/main/java/exe/gba/dao/OpcoesDao.java
-/home/gba/computacao/SPTECH/PI/CLI-Java/src/main/java/exe/gba/objeto/Maquina.java
-/home/gba/computacao/SPTECH/PI/CLI-Java/src/main/java/exe/gba/dao/FuncionarioDao.java
-/home/gba/computacao/SPTECH/PI/CLI-Java/src/main/java/exe/gba/objeto/Funcionario.java
-/home/gba/computacao/SPTECH/PI/CLI-Java/src/main/java/exe/gba/conexao/Conexao.java
-/home/gba/computacao/SPTECH/PI/CLI-Java/src/main/java/exe/gba/dao/MaquinaDao.java
-/home/gba/computacao/SPTECH/PI/CLI-Java/src/main/java/exe/gba/objeto/Menu.java
-/home/gba/computacao/SPTECH/PI/CLI-Java/src/main/java/exe/gba/main/Main.java
-/home/gba/computacao/SPTECH/PI/CLI-Java/src/main/java/exe/gba/objeto/Servidor.java
-/home/gba/computacao/SPTECH/PI/CLI-Java/src/main/java/exe/gba/objeto/Opcoes.java
-/home/gba/computacao/SPTECH/PI/CLI-Java/src/main/java/exe/gba/dao/ServidorDao.java
+C:\Users\rafae\OneDrive\Área de Trabalho\StockSafe\CLI-Java\src\main\java\exe\gba\objeto\Opcoes.java
+C:\Users\rafae\OneDrive\Área de Trabalho\StockSafe\CLI-Java\src\main\java\exe\gba\objeto\Menu.java
+C:\Users\rafae\OneDrive\Área de Trabalho\StockSafe\CLI-Java\src\main\java\exe\gba\objeto\Maquina.java
+C:\Users\rafae\OneDrive\Área de Trabalho\StockSafe\CLI-Java\src\main\java\exe\gba\dao\ServidorDao.java
+C:\Users\rafae\OneDrive\Área de Trabalho\StockSafe\CLI-Java\src\main\java\exe\gba\dao\MaquinaDao.java
+C:\Users\rafae\OneDrive\Área de Trabalho\StockSafe\CLI-Java\src\main\java\exe\gba\objeto\Funcionario.java
+C:\Users\rafae\OneDrive\Área de Trabalho\StockSafe\CLI-Java\src\main\java\exe\gba\objeto\Servidor.java
+C:\Users\rafae\OneDrive\Área de Trabalho\StockSafe\CLI-Java\src\main\java\exe\gba\conexao\Conexao.java
+C:\Users\rafae\OneDrive\Área de Trabalho\StockSafe\CLI-Java\src\main\java\exe\gba\dao\OpcoesDao.java
+C:\Users\rafae\OneDrive\Área de Trabalho\StockSafe\CLI-Java\src\main\java\exe\gba\dao\FuncionarioDao.java
+C:\Users\rafae\OneDrive\Área de Trabalho\StockSafe\CLI-Java\src\main\java\exe\gba\main\Main.java
