@@ -13,13 +13,14 @@ import com.stocksafe.objeto.Menu;
 import com.stocksafe.objeto.Opcoes;
 import org.springframework.jdbc.core.JdbcTemplate;
 
-import java.util.List;
-import java.util.Locale;
-import java.util.Scanner;
+import java.util.*;
 
 public class Main {
     public static void main(String[] args) {
         Locale.setDefault(Locale.US);
+
+        Timer timer = new Timer();
+
         Conexao conexao = new Conexao();
         JdbcTemplate con = conexao.getConexaoDoBanco();
 
@@ -82,7 +83,21 @@ public class Main {
 
         servidorDao.autenticarServidor(servidor, funcionario);
 
+        TimerTask inserirDados = new TimerTask() {
+            @Override
+            public void run() {
+                maquinaDao.inserirDadosPacote(servidor, maquina);
+                maquinaDao.inserirDadosCpu(servidor, maquina);
+                maquinaDao.inserirDadosRam(servidor, maquina);
+                maquinaDao.inserirDadosTransferencia(servidor, maquina);
+            }
+        };
+
         do {
+
+            // TODO: 18/11/2023 Fazer o timertask rodar de segundo plano
+            timer.schedule(inserirDados, 0, 10000);
+
             menu.exibirMenuInicial();
             Integer opcaoEscolhida = menu.solicitarOpcaoInt();
 
@@ -103,7 +118,6 @@ public class Main {
                     menu.opcaoInvalida();
             }
 
-            maquinaDao.inserirDados(servidor, maquina);
             servidorDao.atualizarArmazenamento(servidor, maquina.getArmazenamentoTotal(), maquina.getArmazenamentoUsado());
         } while (true);
     }
