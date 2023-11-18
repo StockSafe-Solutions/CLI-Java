@@ -45,6 +45,7 @@ public class MemoriaDao {
                             maquina.getPercentagemDisponivelRam()
                     )
             );
+            System.out.println("Memória  disponivel \n");
     }
 
     public void inserirDadosRamTotal(Servidor servidor, Maquina maquina, int cat){
@@ -70,6 +71,7 @@ public class MemoriaDao {
                         maquina.getTotalRam()
                 )
         );
+        System.out.println("Memória  total cadastrada\n");
     }
 
     public void inserirDadosRamEmUso(Servidor servidor, Maquina maquina, int cat){
@@ -95,6 +97,7 @@ public class MemoriaDao {
                    maquina.getPorcentagemUsoRam()
                 )
                 );
+        System.out.println("Memória  em uso cadastrada\n");
     }
 
 }
