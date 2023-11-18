@@ -1,12 +1,16 @@
 package exe.gba.main;
 
+import exe.gba.dao.FuncionarioDao;
+import exe.gba.dao.ServidorDao;
+import exe.gba.objeto.Servidor;
 import com.github.britooo.looca.api.core.Looca;
 import exe.gba.conexao.Conexao;
-import exe.gba.dao.FuncionarioDao;
 import exe.gba.dao.MaquinaDao;
 import exe.gba.dao.OpcoesDao;
-import exe.gba.dao.ServidorDao;
-import exe.gba.objeto.*;
+import exe.gba.objeto.Funcionario;
+import exe.gba.objeto.Maquina;
+import exe.gba.objeto.Menu;
+import exe.gba.objeto.Opcoes;
 import org.springframework.jdbc.core.JdbcTemplate;
 
 import java.util.List;

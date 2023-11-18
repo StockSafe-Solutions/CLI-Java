@@ -1,13 +1,9 @@
 package exe.gba.dao;
 
-import exe.gba.objeto.Funcionario;
-import exe.gba.objeto.Maquina;
-import exe.gba.objeto.Opcoes;
+import exe.gba.objeto.Categoria;
 import exe.gba.objeto.Servidor;
-import org.springframework.jdbc.core.BeanPropertyRowMapper;
+import exe.gba.objeto.Maquina;
 import org.springframework.jdbc.core.JdbcTemplate;
-
-import java.util.List;
 
 public class MaquinaDao {
     private JdbcTemplate con;
@@ -16,22 +12,19 @@ public class MaquinaDao {
         this.con = con;
     }
 
-    public void inserirDados (Servidor servidor, Maquina maquina) {
+    // TODO: 18/11/2023 Atualizar a inserção de dados ao novo modelo
+    public void inserirDados (Servidor servidor, Categoria categoria) {
         con.update("""
         INSERT INTO tb_registro VALUES(
             null,
             %d,
+            %d,
             now(),
-            %.0f,
-            %.2f,
-            %.2f,
             %.2f
         );
         """.formatted(servidor.getIdServidor(),
-                maquina.getPacotesEnviados(),
-                maquina.getPorcentagemUsoCpu(),
-                maquina.getPorcentagemUsoRam(),
-                maquina.getTaxaDeTransferencia())
+                // categoria.getCategoria()
+                )
         );
     }
 }

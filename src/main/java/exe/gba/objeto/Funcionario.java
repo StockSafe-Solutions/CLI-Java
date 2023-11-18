@@ -1,7 +1,5 @@
 package exe.gba.objeto;
 
-import java.time.LocalDate;
-
 public class Funcionario {
     private Integer idFuncionario;
     private String nome;

@@ -10,7 +10,6 @@ public class Servidor {
         return idServidor;
     }
 
-
     public void setIdServidor(Integer idServidor) {
         this.idServidor = idServidor;
     }

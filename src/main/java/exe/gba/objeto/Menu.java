@@ -1,11 +1,9 @@
 package exe.gba.objeto;
 
 import exe.gba.dao.FuncionarioDao;
-import exe.gba.dao.MaquinaDao;
 import exe.gba.dao.OpcoesDao;
 
 import java.util.Scanner;
-import java.util.concurrent.TimeUnit;
 
 public class Menu {
     private final Scanner leitor;

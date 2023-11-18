@@ -1,9 +1,8 @@
 package exe.gba.dao;
 
-import exe.gba.objeto.Funcionario;
-import exe.gba.objeto.Maquina;
-import exe.gba.objeto.Opcoes;
 import exe.gba.objeto.Servidor;
+import exe.gba.objeto.Funcionario;
+import exe.gba.objeto.Opcoes;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 

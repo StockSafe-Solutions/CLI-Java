@@ -1,7 +1,6 @@
 package exe.gba.objeto;
 
 import com.github.britooo.looca.api.core.Looca;
-import com.github.britooo.looca.api.group.discos.DiscoGrupo;
 import com.github.britooo.looca.api.group.discos.Volume;
 import com.github.britooo.looca.api.group.memoria.Memoria;
 import com.github.britooo.looca.api.group.processador.Processador;
@@ -15,7 +14,6 @@ public class Maquina {
     private Looca looca;
     private Processador cpu;
     private Memoria ram;
-
     private List<Volume> volumes;
     private List<RedeInterface> interfaces;
     private List<Processo> processos;

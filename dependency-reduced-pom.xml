@@ -18,7 +18,7 @@
             <configuration>
               <transformers>
                 <transformer>
-                  <mainClass>exe.gba.main.Main</mainClass>
+                  <mainClass>main.exe.gba.exe.Main</mainClass>
                 </transformer>
               </transformers>
             </configuration>
