@@ -1,12 +1,10 @@
 package com.stocksafe.dao;
 
-import com.stocksafe.objeto.Categoria;
 import com.stocksafe.objeto.Maquina;
 import com.stocksafe.objeto.Servidor;
 import org.springframework.jdbc.core.JdbcTemplate;
 
 import java.util.Timer;
-import java.util.TimerTask;
 
 public class MaquinaDao {
 
@@ -27,11 +25,11 @@ public class MaquinaDao {
             %d,
             %d,
             now(),
-            %d
+            %.0f
         );
         """.formatted(servidor.getIdServidor(),
                 1, // Categoria Pacotes Enviados
-                maquina.getPacotesEnviados().intValue())
+                maquina.getPacotesEnviados())
         );
     }
 
@@ -42,11 +40,11 @@ public class MaquinaDao {
             %d,
             %d,
             now(),
-            %d
+            %.2f
         );
         """.formatted(servidor.getIdServidor(),
                 2, // Categoria Uso da CPU
-                maquina.getPorcentagemUsoCpu().intValue())
+                maquina.getPorcentagemUsoCpu())
         );
     }
 
@@ -57,11 +55,11 @@ public class MaquinaDao {
             %d,
             %d,
             now(),
-            %d
+            %.2f
         );
         """.formatted(servidor.getIdServidor(),
                 3, // Categoria Uso da RAM
-                maquina.getPorcentagemUsoRam().intValue())
+                maquina.getPorcentagemUsoRam())
         );
     }
 
@@ -72,11 +70,11 @@ public class MaquinaDao {
             %d,
             %d,
             now(),
-            %d
+            %.2f
         );
         """.formatted(servidor.getIdServidor(),
                 4, // Categoria Taxa de transferência
-                maquina.getTaxaDeTransferencia().intValue())
+                maquina.getTaxaDeTransferencia())
         );
     }
 }

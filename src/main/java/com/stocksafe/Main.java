@@ -9,7 +9,6 @@ import com.stocksafe.dao.MaquinaDao;
 import com.stocksafe.dao.OpcoesDao;
 import com.stocksafe.objeto.Funcionario;
 import com.stocksafe.objeto.Maquina;
-import com.stocksafe.objeto.Menu;
 import com.stocksafe.objeto.Opcoes;
 import org.springframework.jdbc.core.JdbcTemplate;
 
@@ -20,10 +19,8 @@ public class Main {
         Locale.setDefault(Locale.US);
 
         Timer timer = new Timer();
-
         Conexao conexao = new Conexao();
         JdbcTemplate con = conexao.getConexaoDoBanco();
-
         Looca looca = new Looca();
 
         Scanner leitor = new Scanner(System.in);
@@ -41,7 +38,7 @@ public class Main {
         ServidorDao servidorDao = new ServidorDao(con);
         Servidor servidor;
 
-        Menu menu = new Menu(leitor, leitorString, funcionarioDao, opcoesDao, maquina);
+        Display display = new Display(leitor, leitorString, funcionarioDao, opcoesDao, maquina);
 
         if (opcoesDao.carregarOpcoes() == null){
             opcoesDao.criarOpcoes();
@@ -83,41 +80,38 @@ public class Main {
 
         servidorDao.autenticarServidor(servidor, funcionario);
 
-        TimerTask inserirDados = new TimerTask() {
-            @Override
-            public void run() {
-                maquinaDao.inserirDadosPacote(servidor, maquina);
-                maquinaDao.inserirDadosCpu(servidor, maquina);
-                maquinaDao.inserirDadosRam(servidor, maquina);
-                maquinaDao.inserirDadosTransferencia(servidor, maquina);
-            }
-        };
+        ColetaDados coletaDados = new ColetaDados(servidor, maquina, maquinaDao);
+        Thread insereDados = new Thread(coletaDados);
+        insereDados.start();
 
         do {
-
-            // TODO: 18/11/2023 Fazer o timertask rodar de segundo plano
-            timer.schedule(inserirDados, 0, 10000);
-
-            menu.exibirMenuInicial();
-            Integer opcaoEscolhida = menu.solicitarOpcaoInt();
+            display.exibirMenuInicial();
+            Integer opcaoEscolhida = display.solicitarOpcaoInt();
 
             switch (opcaoEscolhida) {
                 case 1:
-                    menu.verificarDados();
+                    coletaDados.setInserindo(false);
+                    display.verificarDados();
                     break;
                 case 2:
-                    menu.listarProcessos();
+                    coletaDados.setInserindo(false);
+                    display.listarProcessos();
                     break;
                 case 3:
-                    menu.mudarOpcoes();
+                    coletaDados.setInserindo(false);
+                    display.mudarOpcoes();
                     break;
                 case 0:
-                    menu.exibirMensagemSair();
+                    coletaDados.setInserindo(false);
+                    display.exibirMensagemSair();
                     break;
                 default:
-                    menu.opcaoInvalida();
+                    coletaDados.setInserindo(false);
+                    display.opcaoInvalida();
             }
 
+            coletaDados.setInserindo(true);
+            System.out.println(insereDados.getState());
             servidorDao.atualizarArmazenamento(servidor, maquina.getArmazenamentoTotal(), maquina.getArmazenamentoUsado());
         } while (true);
     }

@@ -1,11 +1,13 @@
-package com.stocksafe.objeto;
+package com.stocksafe;
 
 import com.stocksafe.dao.FuncionarioDao;
 import com.stocksafe.dao.OpcoesDao;
+import com.stocksafe.objeto.Maquina;
+import com.stocksafe.objeto.Opcoes;
 
 import java.util.Scanner;
 
-public class Menu {
+public class Display {
     private final Scanner leitor;
     private final Scanner leitorString;
     private final FuncionarioDao funcionarioDao;
@@ -13,7 +15,7 @@ public class Menu {
     private final Maquina maquina;
 
 
-    public Menu(Scanner leitor, Scanner leitorString, FuncionarioDao funcionarioDao, OpcoesDao opcoesDao, Maquina maquina) {
+    public Display(Scanner leitor, Scanner leitorString, FuncionarioDao funcionarioDao, OpcoesDao opcoesDao, Maquina maquina) {
         this.leitor = leitor;
         this.leitorString = leitorString;
         this.funcionarioDao = funcionarioDao;
@@ -41,36 +43,35 @@ public class Menu {
 
         if (opcoes.getMostrarUsoRam() != null) {
             for (int i = 0; i < 20; i++) {
-                System.out.println("+--------------------------------------------------------------------------+");
-                System.out.println("| Dados Atuais");
-                System.out.println("+--------------------------------------------------------------------------+");
 
+                System.out.println(
+                """
+                +---------------------------------------------------------------------+
+                | Dados Atuais
+                +---------------------------------------------------------------------+
+                """);
                 if (opcoes.getMostrarUsoCpu().equals("1")) {
                     System.out.printf("| Uso de CPU: %.2f %%%n", maquina.getPorcentagemUsoCpu());
                 }
                 if (opcoes.getMostrarUsoRam().equals("1")) {
                     System.out.printf("| Uso de RAM: %.2f %%%n", maquina.getPorcentagemUsoRam());
                 }
-
                 if (opcoes.getMostrarTaxaTransferencia().equals("1")) {
                     System.out.printf("| Taxa de Transferência: %.2f Mb %n", maquina.getTaxaDeTransferencia());
                 }
-
                 if (opcoes.getMostrarPacotesEnviados().equals("1")) {
                     System.out.printf("| Pacotes Enviados: %.0f %n", maquina.getPacotesEnviados());
                 }
-
                 if (opcoes.getMostrarArmazenamentoTotal().equals("1")) {
                     System.out.printf("| Armazenamento Total: %.2f GB %n", maquina.getArmazenamentoTotal());
                 }
                 if (opcoes.getMostrarArmazenamentoUsado().equals("1")) {
                     System.out.printf("| Armazenamento Usado: %.2f GB %n", maquina.getArmazenamentoUsado());
                 }
-
                 System.out.println("+--------------------------------------------------------------------------+");
 
                 try {
-                    Thread.sleep(1000);
+                    Thread.currentThread().sleep(1000);
                 } catch (InterruptedException e) {
                     Thread.currentThread().interrupt();
                 }
