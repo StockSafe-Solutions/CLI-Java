@@ -1,5 +1,6 @@
 package com.stocksafe.dao;
 
+import com.stocksafe.objeto.Categoria;
 import com.stocksafe.objeto.Maquina;
 import com.stocksafe.objeto.Servidor;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -16,8 +17,6 @@ public class MaquinaDao {
         this.con = con;
     }
 
-    // TODO: 18/11/2023 Atualizar a inserção de dados ao novo modelo
-
     public void inserirDadosPacote (Servidor servidor, Maquina maquina) {
         con.update("""
         INSERT INTO tb_registro VALUES(
@@ -28,7 +27,7 @@ public class MaquinaDao {
             %.0f
         );
         """.formatted(servidor.getIdServidor(),
-                1, // Categoria Pacotes Enviados
+                Categoria.PACOTES.getId(),
                 maquina.getPacotesEnviados())
         );
     }
@@ -43,7 +42,7 @@ public class MaquinaDao {
             %.2f
         );
         """.formatted(servidor.getIdServidor(),
-                2, // Categoria Uso da CPU
+                Categoria.CPU.getId(),
                 maquina.getPorcentagemUsoCpu())
         );
     }
@@ -58,7 +57,7 @@ public class MaquinaDao {
             %.2f
         );
         """.formatted(servidor.getIdServidor(),
-                3, // Categoria Uso da RAM
+                Categoria.RAM.getId(),
                 maquina.getPorcentagemUsoRam())
         );
     }
@@ -73,7 +72,7 @@ public class MaquinaDao {
             %.2f
         );
         """.formatted(servidor.getIdServidor(),
-                4, // Categoria Taxa de transferência
+                Categoria.TAXA_TRANSFERENCIA.getId(),
                 maquina.getTaxaDeTransferencia())
         );
     }
