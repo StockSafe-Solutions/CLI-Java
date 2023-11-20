@@ -18,7 +18,6 @@ public class Main {
     public static void main(String[] args) {
         Locale.setDefault(Locale.US);
 
-        Timer timer = new Timer();
         Conexao conexao = new Conexao();
         JdbcTemplate con = conexao.getConexaoDoBanco();
         Looca looca = new Looca();
@@ -38,7 +37,8 @@ public class Main {
         ServidorDao servidorDao = new ServidorDao(con);
         Servidor servidor;
 
-        Display display = new Display(leitor, leitorString, funcionarioDao, opcoesDao, maquina);
+        Display display =
+                new Display(leitor, leitorString, funcionarioDao, opcoesDao, maquina);
 
         if (opcoesDao.carregarOpcoes() == null){
             opcoesDao.criarOpcoes();
@@ -46,7 +46,7 @@ public class Main {
 
         opcoes = opcoesDao.carregarOpcoes();
 
-        Boolean isLogado = false;
+        boolean isLogado = false;
 
         while (!isLogado) {
             System.out.println("Faça seu login");
@@ -58,7 +58,6 @@ public class Main {
             String senha = leitorString.nextLine();
 
             funcionario = new Funcionario(email, senha);
-
             List<Funcionario> funcionarioCadastrado = funcionarioDao.getFuncionarioPorLogin(funcionario);
 
             if (!funcionarioCadastrado.isEmpty()) {
@@ -77,7 +76,6 @@ public class Main {
         }
 
         servidor = servidorDao.selecionarServidor(opcoes).get(0);
-
         servidorDao.autenticarServidor(servidor, funcionario);
 
         ColetaDados coletaDados = new ColetaDados(servidor, maquina, maquinaDao);
@@ -90,29 +88,26 @@ public class Main {
 
             switch (opcaoEscolhida) {
                 case 1:
-                    coletaDados.setInserindo(false);
                     display.verificarDados();
                     break;
                 case 2:
-                    coletaDados.setInserindo(false);
                     display.listarProcessos();
                     break;
                 case 3:
-                    coletaDados.setInserindo(false);
                     display.mudarOpcoes();
                     break;
                 case 0:
+                    isLogado = false;
                     coletaDados.setInserindo(false);
                     display.exibirMensagemSair();
                     break;
                 default:
-                    coletaDados.setInserindo(false);
                     display.opcaoInvalida();
             }
 
-            coletaDados.setInserindo(true);
-            System.out.println(insereDados.getState());
+            System.out.println(insereDados.isAlive());
+
             servidorDao.atualizarArmazenamento(servidor, maquina.getArmazenamentoTotal(), maquina.getArmazenamentoUsado());
-        } while (true);
+        } while (isLogado);
     }
 }

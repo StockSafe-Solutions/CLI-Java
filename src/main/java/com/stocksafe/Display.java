@@ -35,7 +35,7 @@ public class Display {
             |                                      |
             | 0) Sair                              |
             +--------------------------------------+
-                """);
+            """);
     }
 
     public void verificarDados () {
@@ -44,40 +44,44 @@ public class Display {
         if (opcoes.getMostrarUsoRam() != null) {
             for (int i = 0; i < 20; i++) {
 
-                System.out.println(
-                """
+                System.out.println("""
                 +---------------------------------------------------------------------+
                 | Dados Atuais
-                +---------------------------------------------------------------------+
-                """);
+                +---------------------------------------------------------------------+""");
                 if (opcoes.getMostrarUsoCpu().equals("1")) {
-                    System.out.printf("| Uso de CPU: %.2f %%%n", maquina.getPorcentagemUsoCpu());
+                    System.out.printf("| Uso de CPU: %.2f %%%n",
+                            maquina.getPorcentagemUsoCpu());
                 }
                 if (opcoes.getMostrarUsoRam().equals("1")) {
-                    System.out.printf("| Uso de RAM: %.2f %%%n", maquina.getPorcentagemUsoRam());
+                    System.out.printf("| Uso de RAM: %.2f %%%n",
+                            maquina.getPorcentagemUsoRam());
                 }
                 if (opcoes.getMostrarTaxaTransferencia().equals("1")) {
-                    System.out.printf("| Taxa de Transferência: %.2f Mb %n", maquina.getTaxaDeTransferencia());
+                    System.out.printf("| Taxa de Transferência: %.2f Mb %n",
+                            maquina.getTaxaDeTransferencia());
                 }
                 if (opcoes.getMostrarPacotesEnviados().equals("1")) {
-                    System.out.printf("| Pacotes Enviados: %.0f %n", maquina.getPacotesEnviados());
+                    System.out.printf("| Pacotes Enviados: %.0f %n",
+                            maquina.getPacotesEnviados());
                 }
                 if (opcoes.getMostrarArmazenamentoTotal().equals("1")) {
-                    System.out.printf("| Armazenamento Total: %.2f GB %n", maquina.getArmazenamentoTotal());
+                    System.out.printf("| Armazenamento Total: %.2f GB %n",
+                            maquina.getArmazenamentoTotal());
                 }
                 if (opcoes.getMostrarArmazenamentoUsado().equals("1")) {
-                    System.out.printf("| Armazenamento Usado: %.2f GB %n", maquina.getArmazenamentoUsado());
+                    System.out.printf("| Armazenamento Usado: %.2f GB %n",
+                            maquina.getArmazenamentoUsado());
                 }
-                System.out.println("+--------------------------------------------------------------------------+");
-
+                System.out.println(
+                        "+---------------------------------------------------------------------+");
                 try {
-                    Thread.currentThread().sleep(1000);
+                    Thread.sleep(1000);
                 } catch (InterruptedException e) {
+                    e.printStackTrace();
                     Thread.currentThread().interrupt();
                 }
             }
         }
-
     }
 
     public void listarProcessos () {

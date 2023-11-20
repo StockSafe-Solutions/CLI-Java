@@ -72,8 +72,7 @@ public class Maquina {
         double bytesEnviados = 0.0;
         double bytesRecebidos = 0.0;
 
-        for (RedeInterface interfaceAtual :
-                interfaces) {
+        for (RedeInterface interfaceAtual : interfaces) {
             bytesEnviados += interfaceAtual.getBytesEnviados();
             bytesRecebidos += interfaceAtual.getBytesRecebidos();
         }

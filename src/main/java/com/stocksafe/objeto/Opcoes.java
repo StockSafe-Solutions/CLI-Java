@@ -111,12 +111,12 @@ public class Opcoes {
                 +------------------------------------------------------+
                 | Opções Atuais                                        |
                 +------------------------------------------------------+
-                | Mostrar uso da CPU: %s                                |
-                | Mostrar uso de RAM: %s                                |
-                | Mostrar pacotes enviados: %s                          |
-                | Mostrar a taxa de transferência: %s                   |
-                | Mostrar armazenamento total: %s                       |
-                | Mostrar armazenamento usado: %s                       |
+                | Mostrar uso da CPU: %s                               |
+                | Mostrar uso de RAM: %s                               |
+                | Mostrar pacotes enviados: %s                         |
+                | Mostrar a taxa de transferência: %s                  |
+                | Mostrar armazenamento total: %s                      |
+                | Mostrar armazenamento usado: %s                      |
                 +------------------------------------------------------+
                 | (1 = Mostrando / 0 = Oculto)                         |
                 +------------------------------------------------------+
