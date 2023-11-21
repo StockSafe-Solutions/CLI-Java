@@ -7,6 +7,7 @@ import com.github.britooo.looca.api.group.processador.Processador;
 import com.github.britooo.looca.api.group.processos.Processo;
 import com.github.britooo.looca.api.group.rede.RedeInterface;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Maquina {
@@ -106,7 +107,29 @@ public class Maquina {
         return this.conversaoGB(armazenamentoUsado);
     }
 
-    public List<Processo> getProcessos () {
-        return this.processos;
+    public List<String> getProcessos () {
+        List<String> listaProcessos = new ArrayList<>();
+        String processoString;
+
+        for (Processo processo: processos) {
+            processoString = """
+                    PID: %d
+                    Nome: %s
+                    Uso CPU: %f
+                    Uso Memória: %f
+                    Bytes utilizados: %d
+                    Memória virtual utilizada: %d
+                    """
+                    .formatted(
+                            processo.getPid(),
+                            processo.getNome(),
+                            processo.getUsoCpu(),
+                            processo.getUsoMemoria(),
+                            processo.getBytesUtilizados(),
+                            processo.getMemoriaVirtualUtilizada());
+
+            listaProcessos.add(processoString);
+        }
+        return listaProcessos;
     }
 }
