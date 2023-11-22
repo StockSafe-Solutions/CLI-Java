@@ -125,8 +125,8 @@ public class Main {
                     menu.mudarOpcoes();
                     break;
                 case 4 :
-                    for (int i = 0; i < 60; i++) {
-                        Thread.sleep( 5000 );
+                    for (int i = 0; i < 10; i++) {
+                        Thread.sleep( 3000 );
                         System.out.println( "+--------------------------------------------------------------------------+" );
                         System.out.println( "| Dados Atuais" );
                         System.out.println( "+--------------------------------------------------------------------------+" );
