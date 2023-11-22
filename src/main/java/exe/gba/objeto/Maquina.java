@@ -69,14 +69,14 @@ public class Maquina {
     public Double getPercentagemDisponivelRam(){
         Double ramTotal = this.conversaoGB(ram.getTotal());
         Double ramDisponivel = this.conversaoGB( ram.getDisponivel() );
-        return (ramDisponivel - ramTotal) / 100;
+        return (ramDisponivel * 100) / ramTotal;
     }
 
     public Double getPorcentagemUsoRam () {
         Double ramTotal = this.conversaoGB(ram.getTotal());
         Double ramEmUso = this.conversaoGB(ram.getEmUso());
 
-        Double porcentagemDeUso = (ramEmUso - ramTotal )/100;
+        Double porcentagemDeUso = (ramEmUso * 100) / ramTotal;
 
         return porcentagemDeUso;
     }
