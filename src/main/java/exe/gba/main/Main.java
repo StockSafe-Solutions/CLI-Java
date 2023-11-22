@@ -132,7 +132,7 @@ public class Main {
                         System.out.println( "+--------------------------------------------------------------------------+" );
                         System.out.printf( "| Uso de RAM: %.2f %%%n", maquina.getPorcentagemUsoRam() );
                         md.inserirDadosRamEmUso( servidor, maquina, 3 );
-                        System.out.printf( "| Espaço total de RAM: %.2f %%%n", maquina.getTotalRam() );
+                        System.out.printf( "| Espaço total de RAM: %.2f GB %n ", maquina.getTotalRam() );
                         md.inserirDadosRamTotal( servidor, maquina, 5 );
                         System.out.printf( "| Espaço livre  de RAM: %.2f %%%n", maquina.getPercentagemDisponivelRam() );
                         md.inserirDadosRamDisponivel( servidor, maquina, 6 );
