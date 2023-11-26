@@ -11,20 +11,25 @@ import java.util.List;
 
 public class ServidorDao {
     private JdbcTemplate con;
+    private JdbcTemplate conD;
 
-    public ServidorDao(JdbcTemplate con) {
+    public ServidorDao(JdbcTemplate con, JdbcTemplate conD) {
         this.con = con;
+        this.conD = conD;
     }
 
     public List<Servidor> selecionarServidor (Opcoes opcoes) {
+        conD.query("SELECT id_servidor, codigo FROM tb_servidor WHERE codigo = ?;", new BeanPropertyRowMapper<>(Servidor.class), opcoes.getCodigo());
         return con.query("SELECT id_servidor, codigo FROM tb_servidor WHERE codigo = ?;", new BeanPropertyRowMapper<>(Servidor.class), opcoes.getCodigo());
     }
 
     public void autenticarServidor (Servidor servidor, Funcionario funcionario) {
         con.update("UPDATE tb_servidor SET id_autenticador = ? WHERE codigo = ?", funcionario.getIdFuncionario(), servidor.getCodigo());
+        conD.update("UPDATE tb_servidor SET id_autenticador = ? WHERE codigo = ?", funcionario.getIdFuncionario(), servidor.getCodigo());
     }
 
     public void atualizarArmazenamento (Servidor servidor, Double armazenamentoTotal, Double armazenamentoUsado) {
         con.update("UPDATE tb_servidor SET armazenamento_total = ?, armazenamento_usado = ? WHERE codigo = ?", armazenamentoTotal, armazenamentoUsado, servidor.getCodigo());
+        conD.update("UPDATE tb_servidor SET armazenamento_total = ?, armazenamento_usado = ? WHERE codigo = ?", armazenamentoTotal, armazenamentoUsado, servidor.getCodigo());
     }
 }

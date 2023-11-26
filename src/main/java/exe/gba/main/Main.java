@@ -2,6 +2,7 @@ package exe.gba.main;
 
 import com.github.britooo.looca.api.core.Looca;
 import exe.gba.conexao.Conexao;
+import exe.gba.conexao.ConexaoDocker;
 import exe.gba.dao.*;
 import exe.gba.objeto.*;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -15,29 +16,31 @@ public class Main {
 
         Locale.setDefault(Locale.US);
         Conexao conexao = new Conexao();
+        ConexaoDocker cod = new ConexaoDocker();
         JdbcTemplate con = conexao.getConexaoDoBanco();
+        JdbcTemplate conD = cod.getConexaoDoBanco();
 
         Looca looca = new Looca();
 
         Scanner leitor = new Scanner(System.in);
         Scanner leitorString = new Scanner(System.in);
 
-        FuncionarioDao funcionarioDao = new FuncionarioDao(con);
+        FuncionarioDao funcionarioDao = new FuncionarioDao(con, conD);
         Funcionario funcionario = new Funcionario();
 
         OpcoesDao opcoesDao = new OpcoesDao();
         Opcoes opcoes = new Opcoes();
 
         Maquina maquina = new Maquina(looca);
-        MaquinaDao maquinaDao = new MaquinaDao(con);
+        MaquinaDao maquinaDao = new MaquinaDao(con, conD);
 
-        ServidorDao servidorDao = new ServidorDao(con);
+        ServidorDao servidorDao = new ServidorDao(con, conD);
         Servidor servidor;
 
         Menu menu = new Menu(leitor, leitorString, funcionarioDao, opcoesDao, maquina);
 
 
-        MemoriaDao md = new MemoriaDao( con );
+        MemoriaDao md = new MemoriaDao( con, conD);
 
 
         if (opcoesDao.carregarOpcoes() == null){
@@ -87,7 +90,7 @@ public class Main {
                      System.out.println("Digite a unidade");
                      String unidade = leitorString.nextLine();
 
-                     CategoriaDao cd = new CategoriaDao( con );
+                     CategoriaDao cd = new CategoriaDao( con, conD );
                      cd.inserirDadosCategoria(id ,tipo, unidade);
 
                      System.out.println("Deseja adicionar mais uma?  [S/n]");

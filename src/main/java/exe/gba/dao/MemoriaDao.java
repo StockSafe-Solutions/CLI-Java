@@ -10,9 +10,11 @@ import java.time.format.DateTimeFormatter;
 
 public class MemoriaDao {
     private JdbcTemplate con;
+    private JdbcTemplate conD;
     LocalDateTime   data =  LocalDateTime.now();
 
-    public MemoriaDao(JdbcTemplate con) {
+    public MemoriaDao(JdbcTemplate con, JdbcTemplate conD) {
+        this.conD = conD;
         this.con = con;
     }
 
@@ -24,6 +26,29 @@ public class MemoriaDao {
     }
         public void inserirDadosRamDisponivel(Servidor servidor, Maquina maquina, int cat){
             con.update( """
+                INSERT INTO tb_registro (
+                    id_registro,
+                    fk_servidor,
+                    fk_cat,
+                    data_hora,
+                    valor
+                )
+                VALUES (
+                    null,
+                    %d,
+                    %d,
+                    "%s",
+                    %.2f
+                );
+                """.formatted(
+                            servidor.getIdServidor(),
+                            cat,
+                            dataHoraFormatada,
+                            maquina.getPercentagemDisponivelRam()
+                    )
+            );
+
+            conD.update( """
                 INSERT INTO tb_registro (
                     id_registro,
                     fk_servidor,
@@ -71,6 +96,29 @@ public class MemoriaDao {
                         maquina.getTotalRam()
                 )
         );
+
+        conD.update( """
+                INSERT INTO tb_registro (
+                    id_registro,
+                    fk_servidor,
+                    fk_cat,
+                    data_hora,
+                    valor
+                )
+                VALUES (
+                    null,
+                    %d,
+                    %d,
+                    "%s",
+                    %.2f
+                );
+                """.formatted(
+                        servidor.getIdServidor(),
+                        cat,
+                        dataHoraFormatada,
+                        maquina.getTotalRam()
+                )
+        );
         System.out.println("Memória  total cadastrada\n");
     }
 
@@ -97,6 +145,29 @@ public class MemoriaDao {
                    maquina.getPorcentagemUsoRam()
                 )
                 );
+
+        conD.update( """
+                INSERT INTO tb_registro (
+                    id_registro,
+                    fk_servidor,
+                    fk_cat,
+                    data_hora,
+                    valor
+                )
+                VALUES (
+                    null,
+                    %d,
+                    %d,
+                    "%s",
+                    %.2f
+                );
+                """.formatted(
+                        servidor.getIdServidor(),
+                        cat,
+                        dataHoraFormatada,
+                        maquina.getPorcentagemUsoRam()
+                )
+        );
         System.out.println("Memória  em uso cadastrada\n");
     }
 
