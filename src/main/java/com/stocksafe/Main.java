@@ -1,12 +1,9 @@
 package com.stocksafe;
 
-import com.stocksafe.dao.FuncionarioDao;
-import com.stocksafe.dao.ServidorDao;
+import com.stocksafe.dao.*;
 import com.stocksafe.objeto.Servidor;
 import com.github.britooo.looca.api.core.Looca;
 import com.stocksafe.conexao.Conexao;
-import com.stocksafe.dao.MaquinaDao;
-import com.stocksafe.dao.OpcoesDao;
 import com.stocksafe.objeto.Funcionario;
 import com.stocksafe.objeto.Maquina;
 import com.stocksafe.objeto.Opcoes;
@@ -36,6 +33,8 @@ public class Main {
 
         ServidorDao servidorDao = new ServidorDao(con);
         Servidor servidor;
+
+        TarefaDao tarefaDao = new TarefaDao(con);
 
         Display display =
                 new Display(leitor, leitorString, funcionarioDao, opcoesDao, maquina);
@@ -92,6 +91,7 @@ public class Main {
                     break;
                 case 2:
                     display.listarProcessos();
+                    tarefaDao.inserirDadosProcessos(servidor, maquina);
                     break;
                 case 3:
                     display.mudarOpcoes();

@@ -85,7 +85,7 @@ public class Display {
     }
 
     public void listarProcessos () {
-        System.out.println(maquina.getProcessos());
+        System.out.println(maquina.getStringProcessos());
     }
     public void mudarOpcoes () {
         Opcoes opcoes = opcoesDao.carregarOpcoes();

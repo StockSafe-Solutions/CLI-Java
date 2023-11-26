@@ -9,8 +9,6 @@ import java.util.Timer;
 
 public class MaquinaDao {
 
-    Timer timer = new Timer();
-
     private JdbcTemplate con;
 
     public MaquinaDao(JdbcTemplate con) {

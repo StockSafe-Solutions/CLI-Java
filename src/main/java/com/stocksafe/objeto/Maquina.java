@@ -107,7 +107,7 @@ public class Maquina {
         return this.conversaoGB(armazenamentoUsado);
     }
 
-    public List<String> getProcessos () {
+    public List<String> getStringProcessos () {
         List<String> listaProcessos = new ArrayList<>();
         String processoString;
 
@@ -131,5 +131,9 @@ public class Maquina {
             listaProcessos.add(processoString);
         }
         return listaProcessos;
+    }
+
+    public List<Processo> getProcessos() {
+        return processos;
     }
 }
