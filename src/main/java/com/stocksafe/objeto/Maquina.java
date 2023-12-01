@@ -6,6 +6,7 @@ import com.github.britooo.looca.api.group.memoria.Memoria;
 import com.github.britooo.looca.api.group.processador.Processador;
 import com.github.britooo.looca.api.group.processos.Processo;
 import com.github.britooo.looca.api.group.rede.RedeInterface;
+import com.stocksafe.utils.Conversor;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,8 +20,8 @@ public class Maquina {
     private List<RedeInterface> interfaces;
     private List<Processo> processos;
 
-    public Maquina(Looca looca) {
-        this.looca = looca;
+    public Maquina() {
+        this.looca = new Looca();
         this.cpu = looca.getProcessador();
         this.ram = looca.getMemoria();
         this.interfaces = looca.getRede().getGrupoDeInterfaces().getInterfaces();
@@ -40,33 +41,15 @@ public class Maquina {
         return interfaces;
     }
 
-    private Double conversaoGB (Long numero) {
-        return numero * Math.pow(10, -9);
-    }
-
-    private Double conversaoGB (Double numero) {
-        return numero * Math.pow(10, -9);
-    }
-
-    private Long conversaoMb (Long numero) {
-        return numero / 131072;
-    }
-
-    private Double conversaoMb (Double numero) {
-        return numero / 131072;
-    }
-
     public Double getPorcentagemUsoCpu () {
         return cpu.getUso();
     }
 
     public Double getPorcentagemUsoRam () {
-        Double ramTotal = this.conversaoGB(ram.getTotal());
-        Double ramEmUso = this.conversaoGB(ram.getEmUso());
+        Double ramTotal = Conversor.converteGb(ram.getTotal());
+        Double ramEmUso = Conversor.converteGb(ram.getEmUso());
 
-        Double porcentagemDeUso = (ramEmUso * 100) / ramTotal;
-
-        return porcentagemDeUso;
+        return (ramEmUso * 100) / ramTotal;
     }
 
     public Double getTaxaDeTransferencia () {
@@ -78,7 +61,7 @@ public class Maquina {
             bytesRecebidos += interfaceAtual.getBytesRecebidos();
         }
 
-        return conversaoMb((bytesEnviados + bytesRecebidos) / 2);
+        return Conversor.converteMb((bytesEnviados + bytesRecebidos) / 2);
     }
 
     public Double getPacotesEnviados () {
@@ -93,18 +76,17 @@ public class Maquina {
     }
 
     public Double getArmazenamentoTotal () {
-        return this.conversaoGB(looca.getGrupoDeDiscos().getTamanhoTotal());
+        return Conversor.converteGb(looca.getGrupoDeDiscos().getTamanhoTotal());
     }
 
     public Double getArmazenamentoUsado () {
         Double armazenamentoUsado = 0.0;
 
-        for (Volume volumeAtual :
-                volumes) {
+        for (Volume volumeAtual : volumes) {
             armazenamentoUsado += volumeAtual.getTotal() - volumeAtual.getDisponivel();
         }
 
-        return this.conversaoGB(armazenamentoUsado);
+        return Conversor.converteGb(armazenamentoUsado);
     }
 
     public List<String> getStringProcessos () {

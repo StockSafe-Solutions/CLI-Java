@@ -19,16 +19,14 @@ public class Main {
         JdbcTemplate con = conexao.getConexaoDoBanco();
         Looca looca = new Looca();
 
-        Scanner leitor = new Scanner(System.in);
         Scanner leitorString = new Scanner(System.in);
 
         FuncionarioDao funcionarioDao = new FuncionarioDao(con);
         Funcionario funcionario = new Funcionario();
 
         OpcoesDao opcoesDao = new OpcoesDao();
-        Opcoes opcoes = new Opcoes();
 
-        Maquina maquina = new Maquina(looca);
+        Maquina maquina = new Maquina();
         MaquinaDao maquinaDao = new MaquinaDao(con);
 
         ServidorDao servidorDao = new ServidorDao(con);
@@ -36,14 +34,12 @@ public class Main {
 
         ProcessoDao processoDao = new ProcessoDao(con);
 
-        Display display =
-                new Display(leitor, leitorString, funcionarioDao, opcoesDao, maquina);
+        Display display = new Display(funcionarioDao, opcoesDao, maquina);
 
         if (opcoesDao.carregarOpcoes() == null){
             opcoesDao.criarOpcoes();
         }
-
-        opcoes = opcoesDao.carregarOpcoes();
+        Opcoes opcoes = opcoesDao.carregarOpcoes();
 
         boolean isLogado = false;
 

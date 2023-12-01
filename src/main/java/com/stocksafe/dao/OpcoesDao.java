@@ -41,7 +41,6 @@ public class OpcoesDao {
 
             propriedades.setProperty("maquina.codigo", opcoes.getCodigo());
 
-
             propriedades.store(output, "Novas opcões");
         }   catch (IOException io) {
             io.printStackTrace();
@@ -58,7 +57,6 @@ public class OpcoesDao {
             String mostrarTaxaTransferencia = propriedades.getProperty("display.taxaTransferencia");
             String mostrarArmazenamentoTotal = propriedades.getProperty("display.armazenamentoTotal");
             String mostrarArmazenamentoUsado = propriedades.getProperty("display.armazenamentoUsado");
-
             String codigo = propriedades.getProperty("maquina.codigo");
 
             Opcoes opcoes = new Opcoes(mostrarUsoCpu, mostrarUsoRam, mostrarPacotesEnviados, mostrarTaxaTransferencia, mostrarArmazenamentoTotal, mostrarArmazenamentoUsado, codigo);

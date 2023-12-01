@@ -15,9 +15,9 @@ public class Display {
     private final Maquina maquina;
 
 
-    public Display(Scanner leitor, Scanner leitorString, FuncionarioDao funcionarioDao, OpcoesDao opcoesDao, Maquina maquina) {
-        this.leitor = leitor;
-        this.leitorString = leitorString;
+    public Display(FuncionarioDao funcionarioDao, OpcoesDao opcoesDao, Maquina maquina) {
+        this.leitor = new Scanner(System.in);
+        this.leitorString = new Scanner(System.in);
         this.funcionarioDao = funcionarioDao;
         this.opcoesDao = opcoesDao;
         this.maquina = maquina;
