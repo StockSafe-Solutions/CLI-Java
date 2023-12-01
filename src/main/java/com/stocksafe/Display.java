@@ -40,8 +40,8 @@ public class Display {
         return new Funcionario(email, senha);
     }
 
-    public Boolean autenticarLogin(Funcionario usuario) {
-        List<Funcionario> funcionarioCadastrado = FuncionarioDao.getFuncionarioPorLogin(usuario);
+    public Boolean autenticarLogin(Funcionario usuario, FuncionarioDao funcionarioDao) {
+        List<Funcionario> funcionarioCadastrado = funcionarioDao.getFuncionarioPorLogin(usuario);
 
         if (!funcionarioCadastrado.isEmpty()) {
             usuario = funcionarioCadastrado.get(0);
