@@ -34,7 +34,7 @@ public class Main {
         ServidorDao servidorDao = new ServidorDao(con);
         Servidor servidor;
 
-        TarefaDao tarefaDao = new TarefaDao(con);
+        ProcessoDao processoDao = new ProcessoDao(con);
 
         Display display =
                 new Display(leitor, leitorString, funcionarioDao, opcoesDao, maquina);
@@ -91,7 +91,7 @@ public class Main {
                     break;
                 case 2:
                     display.listarProcessos();
-                    tarefaDao.inserirDadosProcessos(servidor, maquina);
+                    processoDao.inserirDadosProcessos(servidor, maquina);
                     break;
                 case 3:
                     display.mudarOpcoes();
