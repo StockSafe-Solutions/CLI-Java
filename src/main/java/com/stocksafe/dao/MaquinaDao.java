@@ -10,13 +10,27 @@ import java.util.Timer;
 public class MaquinaDao {
 
     private JdbcTemplate con;
+    private JdbcTemplate conLocal;
 
-    public MaquinaDao(JdbcTemplate con) {
+    public MaquinaDao(JdbcTemplate con, JdbcTemplate conLocal) {
         this.con = con;
+        this.conLocal = conLocal;
     }
 
     public void inserirDadosPacote (Servidor servidor, Maquina maquina) {
         con.update("""
+        INSERT INTO tb_registro(fk_servidor, fk_cat, data_hora, valor) VALUES(
+            %d,
+            %d,
+            GETDATE(),
+            %.0f
+        );
+        """.formatted(servidor.getIdServidor(),
+                Categoria.PACOTES.getId(),
+                maquina.getPacotesEnviados())
+        );
+
+        conLocal.update("""
         INSERT INTO tb_registro VALUES(
             null,
             %d,
@@ -32,6 +46,18 @@ public class MaquinaDao {
 
     public void inserirDadosCpu (Servidor servidor, Maquina maquina) {
         con.update("""
+        INSERT INTO tb_registro(fk_servidor, fk_cat, data_hora, valor) VALUES(
+            %d,
+            %d,
+            GETDATE(),
+            %.2f
+        );
+        """.formatted(servidor.getIdServidor(),
+                Categoria.CPU.getId(),
+                maquina.getPorcentagemUsoCpu())
+        );
+
+        conLocal.update("""
         INSERT INTO tb_registro VALUES(
             null,
             %d,
@@ -47,6 +73,18 @@ public class MaquinaDao {
 
     public void inserirDadosRam (Servidor servidor, Maquina maquina) {
         con.update("""
+        INSERT INTO tb_registro(fk_servidor, fk_cat, data_hora, valor) VALUES(
+            %d,
+            %d,
+            GETDATE(),
+            %.2f
+        );
+        """.formatted(servidor.getIdServidor(),
+                Categoria.RAM.getId(),
+                maquina.getPorcentagemUsoRam())
+        );
+
+        conLocal.update("""
         INSERT INTO tb_registro VALUES(
             null,
             %d,
@@ -62,6 +100,18 @@ public class MaquinaDao {
 
     public void inserirDadosTransferencia (Servidor servidor, Maquina maquina) {
         con.update("""
+        INSERT INTO tb_registro(fk_servidor, fk_cat, data_hora, valor) VALUES(
+            %d,
+            %d,
+            GETDATE(),
+            %.2f
+        );
+        """.formatted(servidor.getIdServidor(),
+                Categoria.TAXA_TRANSFERENCIA.getId(),
+                maquina.getTaxaDeTransferencia())
+        );
+
+        conLocal.update("""
         INSERT INTO tb_registro VALUES(
             null,
             %d,
@@ -70,8 +120,8 @@ public class MaquinaDao {
             %.2f
         );
         """.formatted(servidor.getIdServidor(),
-                Categoria.TAXA_TRANSFERENCIA.getId(),
-                maquina.getTaxaDeTransferencia())
+                Categoria.RAM.getId(),
+                maquina.getPorcentagemUsoRam())
         );
     }
 }

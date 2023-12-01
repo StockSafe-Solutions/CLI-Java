@@ -1,8 +1,9 @@
 package com.stocksafe;
 
+import com.stocksafe.conexao.BancoSqlServer;
 import com.stocksafe.dao.*;
 import com.stocksafe.objeto.Servidor;
-import com.stocksafe.conexao.Conexao;
+import com.stocksafe.conexao.BancoMySql;
 import com.stocksafe.objeto.Funcionario;
 import com.stocksafe.objeto.Maquina;
 import com.stocksafe.objeto.Opcoes;
@@ -16,16 +17,19 @@ public class Main {
     public static void main(String[] args) {
         Locale.setDefault(Locale.US);
 
-        Conexao conexao = new Conexao();
-        JdbcTemplate con = conexao.getConexaoDoBanco();
+        BancoMySql bancoMySql = new BancoMySql();
+        JdbcTemplate conLocal = bancoMySql.getConexaoDoBanco();
+
+        BancoSqlServer sqlServer = new BancoSqlServer();
+        JdbcTemplate con = sqlServer.getConexaoDoBanco();
 
         Scanner leitorString = new Scanner(System.in);
 
-        FuncionarioDao funcionarioDao = new FuncionarioDao(con);
-        MaquinaDao maquinaDao = new MaquinaDao(con);
+        FuncionarioDao funcionarioDao = new FuncionarioDao(con, conLocal);
+        MaquinaDao maquinaDao = new MaquinaDao(con, conLocal);
+        ProcessoDao processoDao = new ProcessoDao(con, conLocal);
+        ServidorDao servidorDao = new ServidorDao(con, conLocal);
         OpcoesDao opcoesDao = new OpcoesDao();
-        ProcessoDao processoDao = new ProcessoDao(con);
-        ServidorDao servidorDao = new ServidorDao(con);
 
         Maquina maquina = new Maquina();
         Funcionario funcionarioLogado = new Funcionario();
@@ -62,7 +66,7 @@ public class Main {
         Thread insereProcessos = new Thread(coletaProcessos);
 
         insereDados.start();
-        insereProcessos.start();
+        //insereProcessos.start();
 
         do {
             System.out.println("Iniciando coleta de dados...");
@@ -76,14 +80,12 @@ public class Main {
                     break;
                 case 2:
                     display.listarProcessos();
-                    processoDao.inserirDadosProcessos(servidor, maquina);
                     break;
                 case 3:
                     display.mudarOpcoes();
                     break;
                 case 0:
                     isLogado = false;
-                    coletaDados.setInserindo(false);
                     display.exibirMensagemSair();
                     break;
                 default:

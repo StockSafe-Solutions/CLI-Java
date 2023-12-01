@@ -10,9 +10,11 @@ import java.util.List;
 
 public class ServidorDao {
     private JdbcTemplate con;
+    private JdbcTemplate conLocal;
 
-    public ServidorDao(JdbcTemplate con) {
+    public ServidorDao(JdbcTemplate con, JdbcTemplate conLocal) {
         this.con = con;
+        this.conLocal = conLocal;
     }
 
     public List<Servidor> selecionarServidor (Opcoes opcoes) {
@@ -20,10 +22,17 @@ public class ServidorDao {
     }
 
     public void autenticarServidor (Servidor servidor, Funcionario funcionario) {
-        con.update("UPDATE tb_servidor SET id_autenticador = ? WHERE codigo = ?", funcionario.getIdFuncionario(), servidor.getCodigo());
+        con.update("UPDATE tb_servidor SET id_autenticador = ? WHERE codigo = ?"
+                , funcionario.getIdFuncionario(), servidor.getCodigo());
+
+        conLocal.update("UPDATE tb_servidor SET id_autenticador = ? WHERE codigo = ?"
+                , funcionario.getIdFuncionario(), servidor.getCodigo());
     }
 
     public void atualizarArmazenamento (Servidor servidor, Double armazenamentoTotal, Double armazenamentoUsado) {
-        con.update("UPDATE tb_servidor SET armazenamento_total = ?, armazenamento_usado = ? WHERE codigo = ?", armazenamentoTotal, armazenamentoUsado, servidor.getCodigo());
+        con.update("UPDATE tb_servidor SET armazenamento_total = ?, armazenamento_usado = ? WHERE codigo = ?"
+                , armazenamentoTotal, armazenamentoUsado, servidor.getCodigo());
+        conLocal.update("UPDATE tb_servidor SET armazenamento_total = ?, armazenamento_usado = ? WHERE codigo = ?"
+                , armazenamentoTotal, armazenamentoUsado, servidor.getCodigo());
     }
 }
