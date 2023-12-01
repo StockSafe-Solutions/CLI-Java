@@ -1,17 +1,17 @@
-package com.stocksafe;
+package com.stocksafe.runnables;
 
 import com.stocksafe.dao.MaquinaDao;
 import com.stocksafe.objeto.Maquina;
 import com.stocksafe.objeto.Servidor;
 
-public class ColetaDados implements Runnable{
+public class RegistroDeDado implements Runnable{
 
     private final Servidor servidor;
     private final Maquina maquina;
     private final MaquinaDao maquinaDao;
     private Boolean isInserindo;
 
-    public ColetaDados(Servidor servidor, Maquina maquina, MaquinaDao maquinaDao) {
+    public RegistroDeDado(Servidor servidor, Maquina maquina, MaquinaDao maquinaDao) {
         this.servidor = servidor;
         this.maquina = maquina;
         this.maquinaDao = maquinaDao;

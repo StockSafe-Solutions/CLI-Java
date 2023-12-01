@@ -67,8 +67,7 @@ public class Maquina {
     public Double getPacotesEnviados () {
         double pacotesEnviados = 0.0;
 
-        for (RedeInterface interfaceAtual :
-                interfaces) {
+        for (RedeInterface interfaceAtual : interfaces) {
             pacotesEnviados += interfaceAtual.getPacotesEnviados();
         }
 

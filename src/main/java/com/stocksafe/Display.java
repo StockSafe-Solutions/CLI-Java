@@ -2,40 +2,70 @@ package com.stocksafe;
 
 import com.stocksafe.dao.FuncionarioDao;
 import com.stocksafe.dao.OpcoesDao;
+import com.stocksafe.objeto.Funcionario;
 import com.stocksafe.objeto.Maquina;
 import com.stocksafe.objeto.Opcoes;
 
+import java.util.List;
 import java.util.Scanner;
 
 public class Display {
     private final Scanner leitor;
     private final Scanner leitorString;
-    private final FuncionarioDao funcionarioDao;
     private final OpcoesDao opcoesDao;
     private final Maquina maquina;
 
 
-    public Display(FuncionarioDao funcionarioDao, OpcoesDao opcoesDao, Maquina maquina) {
+    public Display(OpcoesDao opcoesDao, Maquina maquina) {
         this.leitor = new Scanner(System.in);
         this.leitorString = new Scanner(System.in);
-        this.funcionarioDao = funcionarioDao;
         this.opcoesDao = opcoesDao;
         this.maquina = maquina;
     }
 
+    public Funcionario realizarLogin() {
+        System.out.println(
+        """
+        +================================+
+        | LOGIN - StockSafe Solutions    |
+        +================================+
+        """);
+
+        System.out.println("Digite o seu email: ");
+        String email = leitorString.nextLine();
+
+        System.out.println("Digite a sua senha: ");
+        String senha = leitorString.nextLine();
+
+        return new Funcionario(email, senha);
+    }
+
+    public Boolean autenticarLogin(Funcionario usuario) {
+        List<Funcionario> funcionarioCadastrado = FuncionarioDao.getFuncionarioPorLogin(usuario);
+
+        if (!funcionarioCadastrado.isEmpty()) {
+            usuario = funcionarioCadastrado.get(0);
+            return true;
+
+        } else {
+            System.out.println("Usuário inválido");
+            return false;
+        }
+    }
+
     public void exibirMenuInicial() {
         System.out.println(
-            """
-            +--------------------------------------+
-            | StockSafe Solutions                  |
-            +--------------------------------------+
-            | 1) Verificar Dados                   |
-            | 2) Listar Processos                  |
-            | 3) Mudar configurações de exibição   |
-            |                                      |
-            | 0) Sair                              |
-            +--------------------------------------+
-            """);
+        """
+        +--------------------------------------+
+        | StockSafe Solutions                  |
+        +--------------------------------------+
+        | 1) Verificar Dados                   |
+        | 2) Listar Processos                  |
+        | 3) Mudar configurações de exibição   |
+        |                                      |
+        | 0) Sair                              |
+        +--------------------------------------+
+        """);
     }
 
     public void verificarDados () {

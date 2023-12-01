@@ -2,11 +2,11 @@ package com.stocksafe;
 
 import com.stocksafe.dao.*;
 import com.stocksafe.objeto.Servidor;
-import com.github.britooo.looca.api.core.Looca;
 import com.stocksafe.conexao.Conexao;
 import com.stocksafe.objeto.Funcionario;
 import com.stocksafe.objeto.Maquina;
 import com.stocksafe.objeto.Opcoes;
+import com.stocksafe.runnables.RegistroDeDado;
 import org.springframework.jdbc.core.JdbcTemplate;
 
 import java.util.*;
@@ -17,26 +17,21 @@ public class Main {
 
         Conexao conexao = new Conexao();
         JdbcTemplate con = conexao.getConexaoDoBanco();
-        Looca looca = new Looca();
 
         Scanner leitorString = new Scanner(System.in);
 
         FuncionarioDao funcionarioDao = new FuncionarioDao(con);
-        Funcionario funcionario = new Funcionario();
-
         OpcoesDao opcoesDao = new OpcoesDao();
-
-        Maquina maquina = new Maquina();
         MaquinaDao maquinaDao = new MaquinaDao(con);
-
         ServidorDao servidorDao = new ServidorDao(con);
-        Servidor servidor;
-
         ProcessoDao processoDao = new ProcessoDao(con);
 
-        Display display = new Display(funcionarioDao, opcoesDao, maquina);
+        Maquina maquina = new Maquina();
+        Funcionario funcionarioLogado = new Funcionario();
 
-        if (opcoesDao.carregarOpcoes() == null){
+        Display display = new Display(opcoesDao, maquina);
+
+        if (opcoesDao.carregarOpcoes() == null) {
             opcoesDao.criarOpcoes();
         }
         Opcoes opcoes = opcoesDao.carregarOpcoes();
@@ -44,24 +39,8 @@ public class Main {
         boolean isLogado = false;
 
         while (!isLogado) {
-            System.out.println("Faça seu login");
-
-            System.out.println("Digite o seu email: ");
-            String email = leitorString.nextLine();
-
-            System.out.println("Digite a sua senha: ");
-            String senha = leitorString.nextLine();
-
-            funcionario = new Funcionario(email, senha);
-            List<Funcionario> funcionarioCadastrado = funcionarioDao.getFuncionarioPorLogin(funcionario);
-
-            if (!funcionarioCadastrado.isEmpty()) {
-                funcionario = funcionarioCadastrado.get(0);
-                isLogado = true;
-
-            } else {
-                System.out.println("Usuário inválido");
-            }
+            funcionarioLogado = display.realizarLogin();
+            isLogado = display.autenticarLogin(funcionarioLogado);
         }
 
         while (servidorDao.selecionarServidor(opcoes).isEmpty()) {
@@ -70,10 +49,10 @@ public class Main {
             opcoesDao.alterarOpcoes(opcoes);
         }
 
-        servidor = servidorDao.selecionarServidor(opcoes).get(0);
-        servidorDao.autenticarServidor(servidor, funcionario);
+        Servidor servidor = servidorDao.selecionarServidor(opcoes).get(0);
+        servidorDao.autenticarServidor(servidor, funcionarioLogado);
 
-        ColetaDados coletaDados = new ColetaDados(servidor, maquina, maquinaDao);
+        RegistroDeDado coletaDados = new RegistroDeDado(servidor, maquina, maquinaDao);
         Thread insereDados = new Thread(coletaDados);
         insereDados.start();
 
