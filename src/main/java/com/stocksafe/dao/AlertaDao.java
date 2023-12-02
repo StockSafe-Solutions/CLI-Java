@@ -16,7 +16,7 @@ public class AlertaDao {
                                 now(),
                                 3,
                                 0,
-                                'CPU em %d do funcionamento normal',
+                                'CPU em %d%% do funcionamento normal',
                                 %d
                             )
                             """.formatted((int) Math.round(valor), idServidor)
@@ -29,7 +29,7 @@ public class AlertaDao {
                                 now(),
                                 2,
                                 0,
-                                'CPU em %d do funcionamento normal',
+                                'CPU em %d%% do funcionamento normal',
                                 %d
                             )
                             """.formatted((int) Math.round(valor), idServidor)
@@ -45,7 +45,7 @@ public class AlertaDao {
                                 now(),
                                 3,
                                 0,
-                                'RAM em %d do funcionamento normal',
+                                'RAM em %d%% do funcionamento normal',
                                 %d
                             )
                             """.formatted((int) Math.round(valor), idServidor)
@@ -58,7 +58,7 @@ public class AlertaDao {
                                 now(),
                                 2,
                                 0,
-                                'RAM em %d do funcionamento normal',
+                                'RAM em %d%% do funcionamento normal',
                                 %d
                             )
                             """.formatted((int) Math.round(valor), idServidor)
@@ -67,7 +67,7 @@ public class AlertaDao {
                 }
                 break;
             case 4:
-                if (valor <= Categoria.TAXA_TRANSFERENCIA.getLIMITE_INFERIOR()){
+                if (valor <= Categoria.TAXA_TRANSFERENCIA.getLIMITE_BAIXO()){
                     con.update("""
                             INSERT INTO tb_alerta VALUES (
                                 null,
@@ -80,7 +80,7 @@ public class AlertaDao {
                             """.formatted((int) Math.round(valor), idServidor)
                     );
 
-                } else if (valor <= Categoria.CPU.getLIMITE_BAIXO()) {
+                } else if (valor <= Categoria.CPU.getLIMITE_INFERIOR()) {
                     con.update("""
                             INSERT INTO tb_alerta VALUES (
                                 null,
