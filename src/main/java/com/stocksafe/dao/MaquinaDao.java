@@ -5,12 +5,10 @@ import com.stocksafe.objeto.Maquina;
 import com.stocksafe.objeto.Servidor;
 import org.springframework.jdbc.core.JdbcTemplate;
 
-import java.util.Timer;
-
 public class MaquinaDao {
 
-    private JdbcTemplate con;
-    private JdbcTemplate conLocal;
+    private final JdbcTemplate con;
+    private final JdbcTemplate conLocal;
 
     public MaquinaDao(JdbcTemplate con, JdbcTemplate conLocal) {
         this.con = con;

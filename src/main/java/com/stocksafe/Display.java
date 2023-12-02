@@ -44,7 +44,7 @@ public class Display {
         List<Funcionario> funcionarioCadastrado = funcionarioDao.getFuncionarioPorLogin(usuario);
 
         if (!funcionarioCadastrado.isEmpty()) {
-            usuario = funcionarioCadastrado.get(0);
+            System.out.println("Usuário autenticado");
             return true;
 
         } else {

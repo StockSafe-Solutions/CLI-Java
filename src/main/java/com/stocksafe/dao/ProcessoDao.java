@@ -1,6 +1,5 @@
 package com.stocksafe.dao;
 
-import com.github.britooo.looca.api.group.processos.Processo;
 import com.stocksafe.objeto.Maquina;
 import com.stocksafe.objeto.Servidor;
 import com.stocksafe.utils.Conversor;
@@ -8,8 +7,8 @@ import org.springframework.jdbc.core.JdbcTemplate;
 
 public class ProcessoDao {
 
-    private JdbcTemplate con;
-    private JdbcTemplate conLocal;
+    private final JdbcTemplate con;
+    private final JdbcTemplate conLocal;
 
     public ProcessoDao(JdbcTemplate con, JdbcTemplate conLocal) {
         this.con = con;

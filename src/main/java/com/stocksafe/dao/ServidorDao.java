@@ -9,8 +9,8 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import java.util.List;
 
 public class ServidorDao {
-    private JdbcTemplate con;
-    private JdbcTemplate conLocal;
+    private final JdbcTemplate con;
+    private final JdbcTemplate conLocal;
 
     public ServidorDao(JdbcTemplate con, JdbcTemplate conLocal) {
         this.con = con;
