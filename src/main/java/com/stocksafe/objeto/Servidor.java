@@ -1,4 +1,4 @@
-package exe.gba.objeto;
+package com.stocksafe.objeto;
 
 public class Servidor {
     private Integer idServidor;
@@ -9,7 +9,6 @@ public class Servidor {
     public Integer getIdServidor() {
         return idServidor;
     }
-
 
     public void setIdServidor(Integer idServidor) {
         this.idServidor = idServidor;

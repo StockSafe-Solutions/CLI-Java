@@ -1,13 +1,14 @@
-package exe.gba.objeto;
+package com.stocksafe.objeto;
 
 import com.github.britooo.looca.api.core.Looca;
-import com.github.britooo.looca.api.group.discos.DiscoGrupo;
 import com.github.britooo.looca.api.group.discos.Volume;
 import com.github.britooo.looca.api.group.memoria.Memoria;
 import com.github.britooo.looca.api.group.processador.Processador;
 import com.github.britooo.looca.api.group.processos.Processo;
 import com.github.britooo.looca.api.group.rede.RedeInterface;
+import com.stocksafe.utils.Conversor;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Maquina {
@@ -15,13 +16,12 @@ public class Maquina {
     private Looca looca;
     private Processador cpu;
     private Memoria ram;
-
     private List<Volume> volumes;
     private List<RedeInterface> interfaces;
     private List<Processo> processos;
 
-    public Maquina(Looca looca) {
-        this.looca = looca;
+    public Maquina() {
+        this.looca = new Looca();
         this.cpu = looca.getProcessador();
         this.ram = looca.getMemoria();
         this.interfaces = looca.getRede().getGrupoDeInterfaces().getInterfaces();
@@ -41,53 +41,33 @@ public class Maquina {
         return interfaces;
     }
 
-    private Double conversaoGB (Long numero) {
-        return numero * Math.pow(10, -9);
-    }
-
-    private Double conversaoGB (Double numero) {
-        return numero * Math.pow(10, -9);
-    }
-
-    private Long conversaoMb (Long numero) {
-        return numero / 131072;
-    }
-
-    private Double conversaoMb (Double numero) {
-        return numero / 131072;
-    }
-
     public Double getPorcentagemUsoCpu () {
         return cpu.getUso();
     }
 
     public Double getPorcentagemUsoRam () {
-        Double ramTotal = this.conversaoGB(ram.getTotal());
-        Double ramEmUso = this.conversaoGB(ram.getEmUso());
+        Double ramTotal = Conversor.converteGb(ram.getTotal());
+        Double ramEmUso = Conversor.converteGb(ram.getEmUso());
 
-        Double porcentagemDeUso = (ramEmUso * 100) / ramTotal;
-
-        return porcentagemDeUso;
+        return (ramEmUso * 100) / ramTotal;
     }
 
     public Double getTaxaDeTransferencia () {
         double bytesEnviados = 0.0;
         double bytesRecebidos = 0.0;
 
-        for (RedeInterface interfaceAtual :
-                interfaces) {
+        for (RedeInterface interfaceAtual : interfaces) {
             bytesEnviados += interfaceAtual.getBytesEnviados();
             bytesRecebidos += interfaceAtual.getBytesRecebidos();
         }
 
-        return conversaoMb((bytesEnviados + bytesRecebidos) / 2);
+        return Conversor.converteMb((bytesEnviados + bytesRecebidos) / 2);
     }
 
     public Double getPacotesEnviados () {
         double pacotesEnviados = 0.0;
 
-        for (RedeInterface interfaceAtual :
-                interfaces) {
+        for (RedeInterface interfaceAtual : interfaces) {
             pacotesEnviados += interfaceAtual.getPacotesEnviados();
         }
 
@@ -95,21 +75,46 @@ public class Maquina {
     }
 
     public Double getArmazenamentoTotal () {
-        return this.conversaoGB(looca.getGrupoDeDiscos().getTamanhoTotal());
+        return Conversor.converteGb(looca.getGrupoDeDiscos().getTamanhoTotal());
     }
 
     public Double getArmazenamentoUsado () {
         Double armazenamentoUsado = 0.0;
 
-        for (Volume volumeAtual :
-                volumes) {
+        for (Volume volumeAtual : volumes) {
             armazenamentoUsado += volumeAtual.getTotal() - volumeAtual.getDisponivel();
         }
 
-        return this.conversaoGB(armazenamentoUsado);
+        return Conversor.converteGb(armazenamentoUsado);
     }
 
-    public List<Processo> getProcessos () {
-        return this.processos;
+    public List<String> getStringProcessos () {
+        List<String> listaProcessos = new ArrayList<>();
+        String processoString;
+
+        for (Processo processo: processos) {
+            processoString = """
+                    PID: %d
+                    Nome: %s
+                    Uso CPU: %f
+                    Uso Memória: %f
+                    Bytes utilizados: %d
+                    Memória virtual utilizada: %d
+                    """
+                    .formatted(
+                            processo.getPid(),
+                            processo.getNome(),
+                            processo.getUsoCpu(),
+                            processo.getUsoMemoria(),
+                            processo.getBytesUtilizados(),
+                            processo.getMemoriaVirtualUtilizada());
+
+            listaProcessos.add(processoString);
+        }
+        return listaProcessos;
+    }
+
+    public List<Processo> getProcessos() {
+        return processos;
     }
 }

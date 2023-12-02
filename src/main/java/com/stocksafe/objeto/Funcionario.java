@@ -1,6 +1,4 @@
-package exe.gba.objeto;
-
-import java.time.LocalDate;
+package com.stocksafe.objeto;
 
 public class Funcionario {
     private Integer idFuncionario;
@@ -11,19 +9,6 @@ public class Funcionario {
     public Funcionario () {}
 
     public Funcionario (String email, String senha) {
-        this.email = email;
-        this.senha = senha;
-    }
-
-    public Funcionario (String nome, String email, String senha) {
-        this.nome = nome;
-        this.email = email;
-        this.senha = senha;
-    }
-
-    public Funcionario (Integer id, String nome, String email, String senha) {
-        this.idFuncionario = id;
-        this.nome = nome;
         this.email = email;
         this.senha = senha;
     }
