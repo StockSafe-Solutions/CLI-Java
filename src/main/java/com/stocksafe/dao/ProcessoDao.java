@@ -58,7 +58,7 @@ public class ProcessoDao {
         conLocal.batchUpdate(mySql, maquina.getProcessos(), 100, (ps, processo) -> {
             ps.setInt(1, processo.getPid());
             ps.setString(2, processo.getNome());
-            ps.setDouble(3, processo.getUsoCpu());
+            ps.setDouble(3, (processo.getUsoCpu() / 10));
             ps.setDouble(4, processo.getUsoMemoria());
             ps.setDouble(5, Conversor.converteMb(processo.getBytesUtilizados()));
             ps.setDouble(6, Conversor.converteMb(processo.getMemoriaVirtualUtilizada()));

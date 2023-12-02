@@ -10,7 +10,7 @@ public class BancoSqlServer{
     public BancoSqlServer() {
         BasicDataSource dataSource = new BasicDataSource();
         dataSource.setDriverClassName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
-        dataSource.setUrl("jdbc:sqlserver://54.164.215.197:1433;databaseName=StockSafe;encrypt=false;trustServerCertificate=false");
+        dataSource.setUrl("jdbc:sqlserver://54.164.215.197:1433;databaseName=StockSafe;encrypt=false;trustServerCertificate=true");
         dataSource.setUsername("sa");
         dataSource.setPassword("urubu100");
 
