@@ -16,17 +16,17 @@ public class MaquinaDao {
     }
 
     public void inserirDadosPacote (Servidor servidor, Maquina maquina) {
-//        con.update("""
-//        INSERT INTO tb_registro(fk_servidor, fk_cat, data_hora, valor) VALUES(
-//            %d,
-//            %d,
-//            GETDATE(),
-//            %.0f
-//        );
-//        """.formatted(servidor.getIdServidor(),
-//                Categoria.PACOTES.getID(),
-//                maquina.getPacotesEnviados())
-//        );
+        con.update("""
+        INSERT INTO tb_registro(fk_servidor, fk_cat, data_hora, valor) VALUES(
+            %d,
+            %d,
+            GETDATE(),
+            %.0f
+        );
+        """.formatted(servidor.getIdServidor(),
+                Categoria.PACOTES.getID(),
+                maquina.getPacotesEnviados())
+        );
 
         conLocal.update("""
         INSERT INTO tb_registro VALUES(
@@ -43,17 +43,17 @@ public class MaquinaDao {
     }
 
     public void inserirDadosCpu (Servidor servidor, Maquina maquina) {
-//        con.update("""
-//        INSERT INTO tb_registro(fk_servidor, fk_cat, data_hora, valor) VALUES(
-//            %d,
-//            %d,
-//            GETDATE(),
-//            %.2f
-//        );
-//        """.formatted(servidor.getIdServidor(),
-//                Categoria.CPU.getID(),
-//                maquina.getPorcentagemUsoCpu())
-//        );
+        con.update("""
+        INSERT INTO tb_registro(fk_servidor, fk_cat, data_hora, valor) VALUES(
+            %d,
+            %d,
+            GETDATE(),
+            %.2f
+        );
+        """.formatted(servidor.getIdServidor(),
+                Categoria.CPU.getID(),
+                maquina.getPorcentagemUsoCpu())
+        );
 
         conLocal.update("""
         INSERT INTO tb_registro VALUES(
@@ -72,17 +72,17 @@ public class MaquinaDao {
     }
 
     public void inserirDadosRam (Servidor servidor, Maquina maquina) {
-//        con.update("""
-//        INSERT INTO tb_registro(fk_servidor, fk_cat, data_hora, valor) VALUES(
-//            %d,
-//            %d,
-//            GETDATE(),
-//            %.2f
-//        );
-//        """.formatted(servidor.getIdServidor(),
-//                Categoria.RAM.getID(),
-//                maquina.getPorcentagemUsoRam())
-//        );
+        con.update("""
+        INSERT INTO tb_registro(fk_servidor, fk_cat, data_hora, valor) VALUES(
+            %d,
+            %d,
+            GETDATE(),
+            %.2f
+        );
+        """.formatted(servidor.getIdServidor(),
+                Categoria.RAM.getID(),
+                maquina.getPorcentagemUsoRam())
+        );
 
         conLocal.update("""
         INSERT INTO tb_registro VALUES(
@@ -101,17 +101,17 @@ public class MaquinaDao {
     }
 
     public void inserirDadosTransferencia (Servidor servidor, Maquina maquina) {
-//        con.update("""
-//        INSERT INTO tb_registro(fk_servidor, fk_cat, data_hora, valor) VALUES(
-//            %d,
-//            %d,
-//            GETDATE(),
-//            %.2f
-//        );
-//        """.formatted(servidor.getIdServidor(),
-//                Categoria.TAXA_TRANSFERENCIA.getID(),
-//                maquina.getTaxaDeTransferencia())
-//        );
+        con.update("""
+        INSERT INTO tb_registro(fk_servidor, fk_cat, data_hora, valor) VALUES(
+            %d,
+            %d,
+            GETDATE(),
+            %.2f
+        );
+        """.formatted(servidor.getIdServidor(),
+                Categoria.TAXA_TRANSFERENCIA.getID(),
+                maquina.getTaxaDeTransferencia())
+        );
 
         conLocal.update("""
         INSERT INTO tb_registro VALUES(

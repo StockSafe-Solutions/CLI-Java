@@ -44,6 +44,9 @@ public class OpcoesDao {
             propriedades.store(output, "Novas opcões");
         }   catch (IOException io) {
             io.printStackTrace();
+        } catch (NullPointerException np){
+            criarOpcoes();
+            alterarOpcoes(opcoes);
         }
     }
     

@@ -16,14 +16,25 @@ public class FuncionarioDao {
     }
 
     public List<Funcionario> listar () {
-        return conLocal.query("SELECT id_funcionario, nome, email FROM tb_funcionario;",
-                new BeanPropertyRowMapper<>(Funcionario.class));
+        try {
+            return con.query("SELECT id_funcionario, nome, email FROM tb_funcionario;",
+                    new BeanPropertyRowMapper<>(Funcionario.class));
+        } catch (Exception e){
+            return conLocal.query("SELECT id_funcionario, nome, email FROM tb_funcionario;",
+                    new BeanPropertyRowMapper<>(Funcionario.class));
+        }
     }
 
     public List<Funcionario> getFuncionarioPorLogin (Funcionario funcionario) {
         System.out.println("Tentando conexão...");
 
-        return conLocal.query("SELECT * FROM tb_funcionario WHERE email = ? AND senha = ?",
-                new BeanPropertyRowMapper<>(Funcionario.class), funcionario.getEmail(), funcionario.getSenha());
+        try {
+            return con.query("SELECT * FROM tb_funcionario WHERE email = ? AND senha = ?",
+                    new BeanPropertyRowMapper<>(Funcionario.class), funcionario.getEmail(), funcionario.getSenha());
+        } catch (Exception e) {
+            System.out.println("Falha na conexão com o servidor central. Gravando dados na localmente.");
+            return conLocal.query("SELECT id_funcionario, nome, email FROM tb_funcionario;",
+                    new BeanPropertyRowMapper<>(Funcionario.class));
+        }
     }
 }

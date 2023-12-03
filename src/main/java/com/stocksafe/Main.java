@@ -20,8 +20,12 @@ public class Main {
         BancoMySql bancoMySql = new BancoMySql();
         JdbcTemplate conLocal = bancoMySql.getConexaoDoBanco();
 
-        BancoSqlServer sqlServer = new BancoSqlServer();
-        JdbcTemplate con = sqlServer.getConexaoDoBanco();
+        JdbcTemplate con = null;
+        try {
+            BancoSqlServer sqlServer = new BancoSqlServer();
+            con = sqlServer.getConexaoDoBanco();
+        } catch (Exception exception){
+        }
 
         Scanner leitorString = new Scanner(System.in);
 

@@ -18,20 +18,24 @@ public class ServidorDao {
     }
 
     public List<Servidor> selecionarServidor (Opcoes opcoes) {
-        return conLocal.query("SELECT id_servidor, codigo FROM tb_servidor WHERE codigo = ?;", new BeanPropertyRowMapper<>(Servidor.class), opcoes.getCodigo());
+        try {
+            return con.query("SELECT id_servidor, codigo FROM tb_servidor WHERE codigo = ?;", new BeanPropertyRowMapper<>(Servidor.class), opcoes.getCodigo());
+        } catch (Exception e){
+            return conLocal.query("SELECT id_servidor, codigo FROM tb_servidor WHERE codigo = ?;", new BeanPropertyRowMapper<>(Servidor.class), opcoes.getCodigo());
+        }
     }
 
     public void autenticarServidor (Servidor servidor, Funcionario funcionario) {
-//        con.update("UPDATE tb_servidor SET id_autenticador = ? WHERE codigo = ?"
-//                , funcionario.getIdFuncionario(), servidor.getCodigo());
+        con.update("UPDATE tb_servidor SET id_autenticador = ? WHERE codigo = ?"
+                , funcionario.getIdFuncionario(), servidor.getCodigo());
 
         conLocal.update("UPDATE tb_servidor SET id_autenticador = ? WHERE codigo = ?"
                 , funcionario.getIdFuncionario(), servidor.getCodigo());
     }
 
     public void atualizarArmazenamento (Servidor servidor, Double armazenamentoTotal, Double armazenamentoUsado) {
-//        con.update("UPDATE tb_servidor SET armazenamento_total = ?, armazenamento_usado = ? WHERE codigo = ?"
-//                , armazenamentoTotal, armazenamentoUsado, servidor.getCodigo());
+        con.update("UPDATE tb_servidor SET armazenamento_total = ?, armazenamento_usado = ? WHERE codigo = ?"
+                , armazenamentoTotal, armazenamentoUsado, servidor.getCodigo());
 
         conLocal.update("UPDATE tb_servidor SET armazenamento_total = ?, armazenamento_usado = ? WHERE codigo = ?"
                 , armazenamentoTotal, armazenamentoUsado, servidor.getCodigo());
