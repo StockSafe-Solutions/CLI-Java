@@ -9,8 +9,8 @@ public class BancoMySql{
     public BancoMySql() {
         BasicDataSource dataSource = new BasicDataSource();
         dataSource.setDriverClassName("com.mysql.cj.jdbc.Driver");
-        dataSource.setUrl("jdbc:mysql://localhost:3306/StockSafe");
-        dataSource.setUsername("StockSafe");
+        dataSource.setUrl("jdbc:mysql://mysql:3306/StockSafe");
+        dataSource.setUsername("root");
         dataSource.setPassword("urubu100");
 
         this.conexaoDoBanco = new JdbcTemplate(dataSource);
