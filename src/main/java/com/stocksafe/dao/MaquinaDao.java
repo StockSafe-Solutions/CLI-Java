@@ -128,4 +128,58 @@ public class MaquinaDao {
 
         AlertaDao.inserirAlerta(Categoria.TAXA_TRANSFERENCIA.getID(), maquina.getTaxaDeTransferencia(), servidor.getIdServidor(), conLocal);
     }
+
+    public void inserirDadosRamTotal (Servidor servidor, Maquina maquina) {
+        con.update("""
+        INSERT INTO tb_registro(fk_servidor, fk_cat, data_hora, valor) VALUES(
+            %d,
+            5,
+            GETDATE(),
+            %.2f
+        );
+        """.formatted(servidor.getIdServidor(),
+                maquina.getTotalRam())
+        );
+
+        conLocal.update("""
+        INSERT INTO tb_registro VALUES(
+            null,
+            %d,
+            5,
+            now(),
+            %.2f
+        );
+        """.formatted(servidor.getIdServidor(),
+                maquina.getTotalRam())
+        );
+
+        AlertaDao.inserirAlerta(5, maquina.getTotalRam(), servidor.getIdServidor(), conLocal);
+    }
+
+    public void inserirDadosRamDisponivel (Servidor servidor, Maquina maquina) {
+        con.update("""
+        INSERT INTO tb_registro(fk_servidor, fk_cat, data_hora, valor) VALUES(
+            %d,
+            6,
+            GETDATE(),
+            %.2f
+        );
+        """.formatted(servidor.getIdServidor(),
+                maquina.getPorcentagemDisponivelRam())
+        );
+
+        conLocal.update("""
+        INSERT INTO tb_registro VALUES(
+            null,
+            %d,
+            6,
+            now(),
+            %.2f
+        );
+        """.formatted(servidor.getIdServidor(),
+                maquina.getPorcentagemDisponivelRam())
+        );
+
+        AlertaDao.inserirAlerta(6, maquina.getPorcentagemDisponivelRam(), servidor.getIdServidor(), conLocal);
+    }
 }
