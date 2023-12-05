@@ -1,13 +1,11 @@
 package com.stocksafe;
 
+import com.mysql.cj.Session;
 import com.stocksafe.Enums.CorTag;
 import com.stocksafe.dao.FuncionarioDao;
 import com.stocksafe.dao.OpcoesDao;
 import com.stocksafe.dao.TagDao;
-import com.stocksafe.objeto.Funcionario;
-import com.stocksafe.objeto.Maquina;
-import com.stocksafe.objeto.Opcoes;
-import com.stocksafe.objeto.Tag;
+import com.stocksafe.objeto.*;
 import org.springframework.jdbc.core.JdbcTemplate;
 
 import java.util.List;
@@ -143,7 +141,7 @@ public class Display {
         opcoesDao.alterarOpcoes(opcoes);
     }
 
-    public void gerenciarTags(){
+    public void gerenciarTags(Servidor servidor){
         boolean continuar = true;
         while(continuar) {
             System.out.println(
@@ -164,7 +162,10 @@ public class Display {
                     adicionarNovaTag();
                     continuar = false;
                 }
-                //case 2 -> TODO!!
+                case 2 -> {
+                    colocarTagsNesseServidor(servidor);
+                    continuar = false;
+                }
                 default -> System.err.println("[!] Opção inválida");
             }
         }
@@ -206,6 +207,39 @@ public class Display {
         Tag tag = new Tag(nomeTag, cores[indiceCor-1].getCOR_RGB());
         TagDao tagDao = new TagDao(con, conLocal);
         tagDao.adicionarTag(tag);
+    }
+
+    public void colocarTagsNesseServidor(Servidor servidor){
+        System.out.println(
+                """
+                +--------------------------------------+
+                | Qual tag adicionar no servidor %s|
+                +--------------------------------------+""".formatted(
+                        servidor.getCodigo()
+                ));
+        TagDao tagDao = new TagDao(con, conLocal);
+        for(Tag tag : tagDao.listarTags()){
+            System.out.println(tag.getNomeTag() + "["+tag.getEmojiCorrespondente()+"]");
+        }
+
+        boolean tagEscolhida = false;
+        String nomeTagEscolhida = "";
+        Tag tagSelecionada = new Tag();
+        while(!tagEscolhida){
+            nomeTagEscolhida = leitorString.nextLine();
+            for(Tag tag : tagDao.listarTags()){
+                if(tag.getNomeTag().equalsIgnoreCase(nomeTagEscolhida)){
+                    tagSelecionada = tag;
+                    break;
+                }
+            }
+            if(!tagEscolhida){
+                System.err.println("Tag inválida...");
+            }
+        }
+
+
+        tagDao.colocarTagEmServidor(tagSelecionada, servidor);
     }
 
     public Integer solicitarOpcaoInt() {

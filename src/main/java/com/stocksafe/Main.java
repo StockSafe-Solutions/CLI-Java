@@ -89,7 +89,7 @@ public class Main {
                     display.mudarOpcoes();
                     break;
                 case 4:
-                    display.gerenciarTags();
+                    display.gerenciarTags(servidor);
                     break;
                 case 0:
                     isLogado = false;
