@@ -70,7 +70,7 @@ public class Main {
         Thread insereProcessos = new Thread(coletaProcessos);
 
         insereDados.start();
-        //insereProcessos.start();
+        insereProcessos.start();
 
         do {
             System.out.println("Iniciando coleta de dados...");
