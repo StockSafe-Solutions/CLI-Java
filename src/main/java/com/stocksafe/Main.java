@@ -38,7 +38,7 @@ public class Main {
         Maquina maquina = new Maquina();
         Funcionario funcionarioLogado = new Funcionario();
 
-        Display display = new Display(opcoesDao, maquina);
+        Display display = new Display(opcoesDao, maquina, con, conLocal);
 
         boolean isLogado = false;
 
@@ -87,6 +87,9 @@ public class Main {
                     break;
                 case 3:
                     display.mudarOpcoes();
+                    break;
+                case 4:
+                    display.gerenciarTags();
                     break;
                 case 0:
                     isLogado = false;
