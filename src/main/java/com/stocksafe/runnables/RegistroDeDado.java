@@ -25,6 +25,8 @@ public class RegistroDeDado implements Runnable{
             maquinaDao.inserirDadosCpu(servidor, maquina);
             maquinaDao.inserirDadosRam(servidor, maquina);
             maquinaDao.inserirDadosTransferencia(servidor, maquina);
+            maquinaDao.inserirDadosRamTotal( servidor, maquina );
+            maquinaDao.inserirDadosRamDisponivel( servidor, maquina );
             try {
                 Thread.sleep(10000);
             } catch (InterruptedException e) {

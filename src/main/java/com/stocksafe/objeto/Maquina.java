@@ -51,6 +51,16 @@ public class Maquina {
 
         return (ramEmUso * 100) / ramTotal;
     }
+    public Double getTotalRam(){
+        Double ramTotal =Conversor.converteGb(ram.getTotal());
+        return ramTotal;
+    }
+
+    public Double getPorcentagemDisponivelRam(){
+        Double ramTotal = Conversor.converteGb(ram.getTotal());
+        Double ramDisponivel = Conversor.converteGb( ram.getDisponivel() );
+        return (ramDisponivel * 100) / ramTotal;
+    }
 
     public Double getTaxaDeTransferencia () {
         double bytesEnviados = 0.0;

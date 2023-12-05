@@ -102,6 +102,12 @@ public class Display {
                     System.out.printf("| Armazenamento Usado: %.2f GB %n",
                             maquina.getArmazenamentoUsado());
                 }
+                    System.out.printf("| RAM disponível: %.2f %%%n",
+                            maquina.getPorcentagemDisponivelRam());
+
+                    System.out.printf("| RAM total: %.2f GB %n",
+                            maquina.getTotalRam());
+
                 System.out.println(
                         "+---------------------------------------------------------------------+");
                 try {
